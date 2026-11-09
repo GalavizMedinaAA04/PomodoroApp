@@ -1,0 +1,62 @@
+name: CI - Pomodoro App & API
+
+on:
+  push:
+    branches: [ main, develop, "feat/**" ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  flutter-ci:
+    name: Análisis estático y pruebas unitarias (Flutter)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Instalar dependencias
+        run: flutter pub get
+
+      - name: Análisis estático (Effective Dart / flutter_lints)
+        run: flutter analyze
+
+      - name: Pruebas unitarias y de caja blanca (con Mocking)
+        run: flutter test --coverage
+
+  laravel-ci:
+    name: Formato PSR-12 y pruebas de API (Laravel)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar PHP 8.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, pdo, pdo_sqlite
+
+      - name: Instalar dependencias de Composer
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Verificar estilo PSR-12 con Laravel Pint
+        run: ./vendor/bin/pint --test
+
+      - name: Preparar entorno y base SQLite
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+          touch database/database.sqlite
+          php artisan migrate --force
+
+      - name: Ejecutar pruebas con PHPUnit
+        run: php artisan test

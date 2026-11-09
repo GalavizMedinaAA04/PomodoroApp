@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prototipo interactivo Pomodoro</title>
+<style>
+  :root {
+    --primario: #E5533D;
+    --terciario: #2F7D8C;
+    --fondo: #FBF8F6;
+    --superficie: #FFFFFF;
+    --texto: #1E1B1A;
+    --texto-suave: #6B625E;
+    --borde: #E4DCD8;
+    --verde: #2E7D32;
+    --alerta: #B45309;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-tema="claro"]) {
+      --fondo: #161413;
+      --superficie: #221F1E;
+      --texto: #F5F1EF;
+      --texto-suave: #A8A09B;
+      --borde: #3A3432;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: var(--fondo);
+    color: var(--texto);
+  }
+  header {
+    background: var(--superficie);
+    border-bottom: 1px solid var(--borde);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+  }
+  header h1 { font-size: 18px; margin: 0; }
+  nav { display: flex; gap: 6px; flex-wrap: wrap; padding: 12px 16px 0; }
+  nav button, .btn, .seg button {
+    font: inherit;
+    border: 1px solid var(--borde);
+    background: var(--superficie);
+    color: var(--texto);
+    border-radius: 12px;
+    padding: 10px 14px;
+    cursor: pointer;
+  }
+  nav button[aria-pressed="true"], .btn.primario, .seg button[aria-pressed="true"] {
+    background: var(--primario);
+    border-color: var(--primario);
+    color: #fff;
+  }
+  .btn.tonal { background: color-mix(in srgb, var(--primario) 12%, var(--superficie)); }
+  .btn:disabled { opacity: 0.45; cursor: default; }
+  main { padding: 16px; max-width: 520px; margin: 0 auto; }
+  section[hidden] { display: none; }
+  .tarjeta {
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  label { display: block; font-size: 13px; color: var(--texto-suave); margin-bottom: 4px; }
+  input, select {
+    width: 100%;
+    font: inherit;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid var(--borde);
+    background: var(--fondo);
+    color: var(--texto);
+    margin-bottom: 4px;
+  }
+  .ayuda { font-size: 12px; color: var(--texto-suave); margin-bottom: 12px; }
+  .error { color: var(--primario); font-size: 12px; min-height: 16px; }
+  .chip {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--primario) 14%, transparent);
+    font-size: 13px;
+  }
+  .chip.descanso { background: color-mix(in srgb, var(--terciario) 18%, transparent); }
+  .tiempo {
+    text-align: center;
+    font-size: 88px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    margin: 16px 0 8px;
+  }
+  .barra { height: 8px; background: var(--borde); border-radius: 4px; overflow: hidden; }
+  .barra > div { height: 100%; background: var(--primario); width: 0; transition: width 0.3s; }
+  .botones { display: grid; gap: 10px; margin-top: 20px; }
+  .botones .btn { padding: 16px; font-size: 17px; }
+  .seg { display: flex; gap: 6px; margin-bottom: 12px; }
+  .seg button { flex: 1; }
+  .grafica {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    height: 200px;
+    border-bottom: 1px solid var(--borde);
+    overflow-x: auto;
+  }
+  .barra-col { flex: 1; min-width: 28px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; }
+  .barra-col .valor { font-size: 11px; color: var(--texto-suave); }
+  .barra-col .relleno { width: 70%; background: var(--primario); border-radius: 6px 6px 0 0; }
+  .barra-col .etiqueta { font-size: 10px; color: var(--texto-suave); margin-top: 4px; white-space: nowrap; }
+  .fila { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--borde); }
+  .fila:last-child { border-bottom: 0; }
+  .fila button { background: none; border: 0; color: var(--primario); font-size: 18px; cursor: pointer; }
+  .fila .tachada { text-decoration: line-through; color: var(--texto-suave); }
+  .modal-fondo {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.45);
+    display: flex; align-items: center; justify-content: center; padding: 16px;
+  }
+  .modal-fondo[hidden] { display: none; }
+  .modal { background: var(--superficie); border-radius: 16px; padding: 20px; max-width: 360px; width: 100%; }
+  .modal h2 { font-size: 18px; margin-top: 0; }
+  .modal .acciones { display: grid; gap: 8px; margin-top: 16px; }
+  .aviso { font-size: 14px; color: var(--texto-suave); min-height: 20px; margin-top: 12px; text-align: center; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Pomodoro</h1>
+  <span class="chip" id="chip-sesion" hidden>Sesión en curso</span>
+</header>
+
+<nav>
+  <button data-pantalla="temporizador" aria-pressed="true">Temporizador</button>
+  <button data-pantalla="tareas" aria-pressed="false">Tareas</button>
+  <button data-pantalla="graficas" aria-pressed="false">Gráficas</button>
+  <button data-pantalla="sincronizacion" aria-pressed="false">Sincronización</button>
+  <button data-pantalla="configuracion" aria-pressed="false">Configuración</button>
+</nav>
+
+<main>
+  <!-- Temporizador -->
+  <section id="temporizador">
+    <div class="tarjeta">
+      <label for="selector-tarea">Tarea en la que trabajarás</label>
+      <select id="selector-tarea"></select>
+      <div class="ayuda">Debes elegir una tarea para iniciar un pomodoro de trabajo.</div>
+      <div style="text-align:center"><span class="chip" id="fase">Trabajo</span></div>
+      <div class="tiempo" id="tiempo">25:00</div>
+      <div class="barra"><div id="progreso"></div></div>
+      <div class="aviso" id="aviso-temporizador"></div>
+      <div class="botones">
+        <button class="btn primario" id="btn-iniciar">Iniciar</button>
+        <button class="btn tonal" id="btn-pausar" disabled>Pausar</button>
+        <button class="btn" id="btn-cancelar">Cancelar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tareas -->
+  <section id="tareas" hidden>
+    <div class="tarjeta">
+      <div style="display:flex; gap:8px; margin-bottom:12px">
+        <input id="nueva-tarea" placeholder="Nueva tarea">
+        <button class="btn primario" id="btn-agregar">Agregar</button>
+      </div>
+      <div id="lista-tareas"></div>
+      <div class="ayuda" id="ayuda-tareas"></div>
+    </div>
+  </section>
+
+  <!-- Gráficas -->
+  <section id="graficas" hidden>
+    <div class="tarjeta">
+      <div class="seg" role="group" aria-label="Periodo">
+        <button data-periodo="dia" aria-pressed="true">Día</button>
+        <button data-periodo="semana" aria-pressed="false">Semana</button>
+        <button data-periodo="mes" aria-pressed="false">Mes</button>
+      </div>
+      <div style="font-size:18px; font-weight:600" id="total-grafica"></div>
+      <div class="ayuda" id="descripcion-grafica"></div>
+      <div class="grafica" id="barras"></div>
+    </div>
+    <div class="ayuda">Datos de ejemplo. En la app real se leen de la base de datos.</div>
+  </section>
+
+  <!-- Sincronización -->
+  <section id="sincronizacion" hidden>
+    <div class="tarjeta">
+      <label for="url">Dirección de la API</label>
+      <input id="url" value="http://10.0.2.2:8000/api">
+      <label for="correo">Correo</label>
+      <input id="correo" type="email" placeholder="ana@example.com">
+      <label for="contrasena">Contraseña</label>
+      <input id="contrasena" type="password">
+      <div class="botones">
+        <button class="btn primario" id="btn-login">Iniciar sesión</button>
+        <button class="btn tonal" id="btn-sync" disabled>Sincronizar ahora</button>
+        <button class="btn" id="btn-salir" disabled>Cerrar sesión en este equipo</button>
+      </div>
+      <div class="aviso" id="estado-sync"></div>
+    </div>
+  </section>
+
+  <!-- Configuración -->
+  <section id="configuracion" hidden>
+    <div class="tarjeta">
+      <label for="min-trabajo">Minutos de trabajo</label>
+      <input id="min-trabajo" inputmode="numeric" value="25">
+      <div class="ayuda">Recomendado: 15 a 60 min</div>
+      <div class="error" id="error-trabajo"></div>
+      <label for="min-descanso">Minutos de descanso</label>
+      <input id="min-descanso" inputmode="numeric" value="5">
+      <div class="ayuda">Recomendado: 3 a 30 min</div>
+      <div class="error" id="error-descanso"></div>
+      <div class="botones">
+        <button class="btn primario" id="btn-guardar">Guardar</button>
+      </div>
+      <div class="aviso" id="aviso-config"></div>
+    </div>
+  </section>
+</main>
+
+<!-- Aviso de tiempos fuera de rango -->
+<div class="modal-fondo" id="modal-rango" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="titulo-modal">
+    <h2 id="titulo-modal">Fuera del rango recomendado</h2>
+    <div id="detalle-rango" class="ayuda"></div>
+    <p>¿Quieres continuar con estos tiempos o usar el rango recomendado?</p>
+    <div class="acciones">
+      <button class="btn" id="modal-cancelar">Cancelar</button>
+      <button class="btn tonal" id="modal-ajustar">Usar rango recomendado</button>
+      <button class="btn primario" id="modal-continuar">Continuar de todos modos</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  // ---- Datos de ejemplo ----
+  const tareas = [
+    { id: 1, titulo: 'Estudiar cálculo', completada: false },
+    { id: 2, titulo: 'Leer capítulo 3', completada: false },
+    { id: 3, titulo: 'Entregar ensayo', completada: true },
+  ];
+  const datosGraficas = {
+    dia: { etiquetas: ['07','08','09','10','11','12','13','14','15','16','17','18','19','20'], valores: [25,0,50,25,75,0,25,50,25,0,50,75,25,50] },
+    semana: { etiquetas: ['06/10','13/10','20/10'], valores: [300,240,150] },
+    mes: { etiquetas: ['may 26','jun 26','jul 26','ago 26','sep 26','oct 26'], valores: [900,1200,600,1500,1100,450] },
+  };
+  const descripciones = {
+    dia: 'Últimos 14 días',
+    semana: 'Últimas 8 semanas, desde el lunes',
+    mes: 'Últimos 12 meses',
+  };
+
+  // ---- Navegación ----
+  const pantallas = ['temporizador','tareas','graficas','sincronizacion','configuracion'];
+  document.querySelectorAll('nav button').forEach(boton => {
+    boton.addEventListener('click', () => {
+      document.querySelectorAll('nav button').forEach(b => b.setAttribute('aria-pressed', b === boton));
+      pantallas.forEach(p => document.getElementById(p).hidden = p !== boton.dataset.pantalla);
+    });
+  });
+
+  // ---- Temporizador ----
+  const selector = document.getElementById('selector-tarea');
+  const btnIniciar = document.getElementById('btn-iniciar');
+  const btnPausar = document.getElementById('btn-pausar');
+  const btnCancelar = document.getElementById('btn-cancelar');
+  const aviso = document.getElementById('aviso-temporizador');
+  let minutosTrabajo = 25, minutosDescanso = 5;
+  let fase = 'trabajo', restante = minutosTrabajo * 60, reloj = null, sesionEnCurso = false;
+
+  function duracion() { return (fase === 'trabajo' ? minutosTrabajo : minutosDescanso) * 60; }
+  function pintar() {
+    const m = String(Math.floor(restante / 60)).padStart(2, '0');
+    const s = String(restante % 60).padStart(2, '0');
+    document.getElementById('tiempo').textContent = `${m}:${s}`;
+    document.getElementById('progreso').style.width = `${(1 - restante / duracion()) * 100}%`;
+    const chip = document.getElementById('fase');
+    chip.textContent = fase === 'trabajo' ? 'Trabajo' : 'Descanso';
+    chip.classList.toggle('descanso', fase !== 'trabajo');
+    selector.disabled = Boolean(reloj) || sesionEnCurso;
+    document.getElementById('chip-sesion').hidden = !sesionEnCurso;
+  }
+  function llenarSelector() {
+    const pendientes = tareas.filter(t => !t.completada);
+    selector.innerHTML = '<option value="">Selecciona una tarea</option>' +
+      pendientes.map(t => `<option value="${t.id}">${t.titulo}</option>`).join('');
+  }
+  function iniciar() {
+    if (reloj) return;
+    if (fase === 'trabajo' && !selector.value) {
+      aviso.textContent = 'Selecciona una tarea antes de iniciar';
+      return;
+    }
+    aviso.textContent = '';
+    if (fase === 'trabajo' && restante === duracion()) sesionEnCurso = true;
+    reloj = setInterval(tick, 1000);
+    btnIniciar.disabled = true; btnPausar.disabled = false;
+    pintar();
+  }
+  function detener() {
+    clearInterval(reloj); reloj = null;
+    btnIniciar.disabled = false; btnPausar.disabled = true;
+  }
+  function tick() {
+    restante -= 1;
+    if (restante <= 0) {
+      detener();
+      if (fase === 'trabajo') {
+        aviso.textContent = 'Pomodoro completado. Sesión guardada en el historial.';
+        fase = 'descanso'; sesionEnCurso = false;
+      } else {
+        aviso.textContent = 'Descanso terminado. ¡A trabajar!';
+        fase = 'trabajo';
+      }
+      restante = duracion();
+    }
+    pintar();
+  }
+  btnIniciar.addEventListener('click', iniciar);
+  btnPausar.addEventListener('click', () => { detener(); aviso.textContent = 'En pausa'; pintar(); });
+  btnCancelar.addEventListener('click', () => {
+    detener(); fase = 'trabajo'; sesionEnCurso = false; restante = duracion();
+    aviso.textContent = 'Sesión cancelada'; pintar();
+  });
+  selector.addEventListener('change', pintar);
+
+  // ---- Tareas ----
+  function pintarTareas() {
+    const lista = document.getElementById('lista-tareas');
+    lista.innerHTML = tareas.map(t => `
+      <div class="fila">
+        <label style="margin:0; display:flex; gap:8px; align-items:center; color:var(--texto)">
+          <input type="checkbox" data-id="${t.id}" ${t.completada ? 'checked' : ''} style="width:auto; margin:0">
+          <span class="${t.completada ? 'tachada' : ''}">${t.titulo}</span>
+        </label>
+        <button data-borrar="${t.id}" aria-label="Eliminar">✕</button>
+      </div>`).join('') || '<div class="ayuda">No hay tareas. Agrega una arriba.</div>';
+  }
+  lista.addEventListener('change', e => {
+    const t = tareas.find(x => x.id == e.target.dataset.id);
+    if (t) { t.completada = e.target.checked; pintarTareas(); llenarSelector(); }
+  });
+  document.getElementById('lista-tareas').addEventListener('click', e => {
+    const id = e.target.dataset.borrar;
+    if (!id) return;
+    if (confirm('¿Eliminar esta tarea? También se borrarán sus sesiones.')) {
+      tareas.splice(tareas.findIndex(t => t.id == id), 1);
+      pintarTareas(); llenarSelector();
+    }
+  });
+  document.getElementById('btn-agregar').addEventListener('click', () => {
+    const campo = document.getElementById('nueva-tarea');
+    const titulo = campo.value.trim();
+    if (!titulo) { document.getElementById('ayuda-tareas').textContent = 'El título no puede estar vacío'; return; }
+    tareas.push({ id: Date.now(), titulo, completada: false });
+    campo.value = ''; document.getElementById('ayuda-tareas').textContent = '';
+    pintarTareas(); llenarSelector();
+  });
+
+  // ---- Gráficas ----
+  function pintarGrafica(periodo) {
+    document.querySelectorAll('.seg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.periodo === periodo));
+    const datos = datosGraficas[periodo];
+    const maximo = Math.max(...datos.valores, 1);
+    const total = datos.valores.reduce((a, b) => a + b, 0);
+    document.getElementById('total-grafica').textContent = `Total: ${total} min`;
+    document.getElementById('descripcion-grafica').textContent = descripciones[periodo];
+    document.getElementById('barras').innerHTML = datos.valores.map((v, i) => `
+      <div class="barra-col" title="${v} min">
+        ${v ? `<span class="valor">${v}</span>` : ''}
+        <div class="relleno" style="height:${(v / maximo) * 85}%; ${v ? '' : 'height:2px; background:var(--borde)'}"></div>
+        <span class="etiqueta">${datos.etiquetas[i]}</span>
+      </div>`).join('');
+  }
+  document.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => pintarGrafica(b.dataset.periodo)));
+
+  // ---- Sincronización (simulada) ----
+  let sesionApi = false;
+  document.getElementById('btn-login').addEventListener('click', () => {
+    const correo = document.getElementById('correo').value.trim();
+    const estado = document.getElementById('estado-sync');
+    if (!correo) { estado.textContent = 'Escribe tu correo'; return; }
+    sesionApi = true;
+    document.getElementById('btn-sync').disabled = false;
+    document.getElementById('btn-salir').disabled = false;
+    estado.textContent = 'Sesión iniciada. Ya puedes sincronizar.';
+  });
+  document.getElementById('btn-sync').addEventListener('click', () => {
+    if (!sesionApi) return;
+    document.getElementById('estado-sync').textContent = `Sincronizado: ${tareas.length} tareas y 5 sesiones.`;
+  });
+  document.getElementById('btn-salir').addEventListener('click', () => {
+    sesionApi = false;
+    document.getElementById('btn-sync').disabled = true;
+    document.getElementById('btn-salir').disabled = true;
+    document.getElementById('estado-sync').textContent = 'Sesión cerrada en este equipo.';
+  });
+
+  // ---- Configuración con aviso de rango ----
+  const rangos = { trabajo: [15, 60], descanso: [3, 30] };
+  let pendiente = null;
+  function fueraDeRango(valor, [min, max]) { return valor < min || valor > max; }
+  function ajustar(valor, [min, max]) { return Math.min(Math.max(valor, min), max); }
+  function guardar(t, d) {
+    minutosTrabajo = t; minutosDescanso = d;
+    if (!reloj && !sesionEnCurso) { fase = 'trabajo'; restante = duracion(); }
+    pintar();
+    document.getElementById('aviso-config').textContent = `Guardado: ${t} min de trabajo y ${d} min de descanso.`;
+  }
+  document.getElementById('btn-guardar').addEventListener('click', () => {
+    const t = Number(document.getElementById('min-trabajo').value);
+    const d = Number(document.getElementById('min-descanso').value);
+    const errT = document.getElementById('error-trabajo');
+    const errD = document.getElementById('error-descanso');
+    errT.textContent = (t >= 1 && t <= 120) ? '' : 'Debe ser entre 1 y 120 min';
+    errD.textContent = (d >= 1 && d <= 120) ? '' : 'Debe ser entre 1 y 120 min';
+    if (errT.textContent || errD.textContent) return;
+
+    const avisos = [];
+    if (fueraDeRango(t, rangos.trabajo)) avisos.push(`Trabajo: ${t} min (recomendado de 15 a 60 min)`);
+    if (fueraDeRango(d, rangos.descanso)) avisos.push(`Descanso: ${d} min (recomendado de 3 a 30 min)`);
+    if (!avisos.length) { guardar(t, d); return; }
+
+    pendiente = { t, d };
+    document.getElementById('detalle-rango').innerHTML = avisos.join('<br>');
+    document.getElementById('modal-rango').hidden = false;
+  });
+  const cerrarModal = () => document.getElementById('modal-rango').hidden = true;
+  document.getElementById('modal-cancelar').addEventListener('click', cerrarModal);
+  document.getElementById('modal-ajustar').addEventListener('click', () => {
+    const t = ajustar(pendiente.t, rangos.trabajo), d = ajustar(pendiente.d, rangos.descanso);
+    document.getElementById('min-trabajo').value = t;
+    document.getElementById('min-descanso').value = d;
+    cerrarModal(); guardar(t, d);
+  });
+  document.getElementById('modal-continuar').addEventListener('click', () => {
+    cerrarModal(); guardar(pendiente.t, pendiente.d);
+  });
+
+  // ---- Arranque ----
+  llenarSelector(); pintarTareas(); pintarGrafica('dia'); pintar();
+})();
+</script>
+</body>
+</html>
