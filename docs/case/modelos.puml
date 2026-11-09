@@ -1,0 +1,106 @@
+' Modelos del proyecto en PlantUML.
+' Cada bloque @startuml...@enduml es un diagrama distinto.
+' Para verlos: pegar en plantuml.com, o usar la extensión de PlantUML en VS Code.
+' Trazabilidad: los IDs RF-xx y RNF-xx corresponden a docs/analisis/modelo-de-analisis.md.
+
+@startuml casos-de-uso
+left to right direction
+actor "Estudiante" as E
+actor "Servidor API" as S <<sistema>>
+
+rectangle "App Pomodoro" {
+  usecase "Iniciar pomodoro (RF-01)" as UC1
+  usecase "Pausar o cancelar (RF-01)" as UC2
+  usecase "Gestionar tareas (RF-05)" as UC3
+  usecase "Configurar tiempos (RF-06)" as UC4
+  usecase "Ver estadísticas y gráficas (RF-07, RF-08)" as UC5
+  usecase "Sincronizar (RF-09, RF-10)" as UC6
+}
+
+E --> UC1
+E --> UC2
+E --> UC3
+E --> UC4
+E --> UC5
+E --> UC6
+UC6 --> S
+UC1 ..> UC3 : <<include>> tarea seleccionada
+@enduml
+
+@startuml modelo-de-dominio
+class Usuario {
+  id
+  nombre
+  correo
+}
+class Tarea {
+  id
+  titulo
+  completada
+  pomodoros_estimados
+  updated_at
+}
+class Sesion {
+  id
+  fecha_inicio
+  duracion_minutos
+  estado
+  updated_at
+}
+Usuario "1" -- "0..*" Tarea : tiene
+Tarea "1" -- "0..*" Sesion : registra
+note right of Sesion
+  Sin user_id: el dueño
+  se obtiene por la tarea (3FN).
+end note
+@enduml
+
+@startuml ciclo-pomodoro
+class CicloPomodoro {
+  +corriendo : bool
+  +segundosRestantes : int
+  +fase : FasePomodoro
+  +iniciar(tareaId, ahora) : bool
+  +sincronizar(ahora) : bool
+  +pausar(ahora)
+  +cancelar()
+  +finalizarFase() : SesionCompletada?
+}
+class SesionCompletada {
+  +tareaId
+  +inicio
+  +minutos
+}
+enum FasePomodoro {
+  trabajo
+  descanso
+}
+CicloPomodoro --> FasePomodoro
+CicloPomodoro ..> SesionCompletada : devuelve
+@enduml
+
+@startuml sincronizacion
+actor Estudiante
+participant "TimerScreen / SyncScreen" as UI
+participant "SyncService" as SS
+participant "DatabaseHelper" as DB
+participant "API /api/sync" as API
+participant "SyncController" as SC
+
+Estudiante -> UI : Sincronizar ahora
+UI -> SS : sincronizar()
+SS -> DB : exportarParaSync()
+DB --> SS : tasks, sessions, tareas_eliminadas
+SS -> API : POST /api/sync (Bearer token)
+API -> SC : syncData(payload)
+SC -> SC : validar y aplicar last-write-wins
+alt sesión apunta a tarea ajena
+  SC --> API : 422
+  API --> SS : error
+else todo válido
+  SC --> API : 200 con conteos
+  API --> SS : 200
+  SS -> DB : limpiarEliminadas(ids)
+end
+SS --> UI : resumen
+@enduml
