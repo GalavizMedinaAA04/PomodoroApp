@@ -246,4 +246,24 @@ void main() {
     expect(ciclo.segundosRestantes, 25 * 60);
     expect(ciclo.esDescansoLargo, isFalse);
   });
+
+  test('CP-CB-05 aplicarTiempos en reposo actualiza de inmediato y calcula progreso', () {
+    // Preparar
+    final ciclo = CicloPomodoro(minutosTrabajo: 25, minutosDescanso: 5);
+
+    // Ejecutar
+    ciclo.aplicarTiempos(30, 6, 18, 3);
+    final progresoInicial = ciclo.progreso;
+    ciclo.iniciar(tareaId: 'tarea-1', ahora: inicio);
+    ciclo.sincronizar(inicio.add(const Duration(minutes: 15)));
+    final progresoMitad = ciclo.progreso;
+
+    // Verificar
+    expect(ciclo.minutosTrabajo, 30);
+    expect(ciclo.minutosDescanso, 6);
+    expect(ciclo.minutosDescansoLargo, 18);
+    expect(ciclo.ciclosAntesDeLargo, 3);
+    expect(progresoInicial, 0);
+    expect(progresoMitad, 0.5);
+  });
 }
