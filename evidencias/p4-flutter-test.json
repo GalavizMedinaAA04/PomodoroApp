@@ -1,0 +1,206 @@
+Resolving dependencies...
+Downloading packages...
+  audioplayers 6.7.1 (6.8.1 available)
+  audioplayers_android 5.2.1 (5.3.0 available)
+  audioplayers_darwin 6.4.0 (6.5.0 available)
+  audioplayers_linux 4.2.1 (4.3.0 available)
+  audioplayers_platform_interface 7.1.1 (7.2.0 available)
+  audioplayers_web 5.2.1 (5.3.0 available)
+  audioplayers_windows 4.3.1 (4.4.1 available)
+  characters 1.4.0 (1.4.1 available)
+  clock 1.1.2 (1.1.3 available)
+  code_assets 1.2.1 (2.2.0 available)
+  crypto 3.0.7 (3.0.8 available)
+  cupertino_icons 1.0.9 (2.0.0 available)
+  dbus 0.8.0 (0.8.1 available)
+  flutter_local_notifications 22.3.2 (23.0.3 available)
+  flutter_local_notifications_linux 8.0.2 (9.0.0 available)
+  flutter_local_notifications_platform_interface 12.2.0 (13.0.0 available)
+  flutter_local_notifications_web 1.0.0 (2.0.0 available)
+  flutter_local_notifications_windows 3.1.1 (4.0.1 available)
+  hooks 2.0.2 (2.2.0 available)
+  jni 1.1.0 (1.2.1 available)
+  jni_flutter 1.0.4+1 (1.1.0 available)
+  matcher 0.12.17 (0.12.20 available)
+  material_color_utilities 0.11.1 (0.13.1 available)
+  meta 1.17.0 (1.19.0 available)
+  native_toolchain_c 0.19.2 (0.19.6 available)
+  objective_c 9.5.0 (9.6.4 available)
+  package_config 2.2.0 (3.0.0 available)
+  petitparser 7.0.2 (7.1.0 available)
+  platform 3.1.6 (3.2.0 available)
+  record_use 0.6.0 (1.1.1 available)
+  shared_preferences 2.5.5 (2.5.6 available)
+  shared_preferences_android 2.4.23 (2.5.5 available)
+  shared_preferences_foundation 2.5.7 (2.6.2 available)
+  sqflite 2.4.2+1 (2.4.6 available)
+  sqflite_android 2.4.2+3 (2.4.6 available)
+  sqflite_common 2.5.8 (2.5.17 available)
+  sqflite_common_ffi 2.4.0+3 (2.4.7 available)
+  sqflite_darwin 2.4.2 (2.4.6 available)
+  sqflite_platform_interface 2.4.0 (2.4.4 available)
+  sqlite3 3.5.2 (3.9.1 available)
+  stack_trace 1.12.1 (1.12.2 available)
+  synchronized 3.4.0 (3.6.1+1 available)
+  test_api 0.7.7 (0.7.15 available)
+  vector_math 2.2.0 (2.4.4 available)
+  web 1.1.1 (1.1.2 available)
+  xml 6.6.1 (7.1.0 available)
+Got dependencies!
+46 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+{"protocolVersion":"0.1.1","runnerVersion":null,"pid":35108,"type":"start","time":0}
+{"suite":{"id":0,"platform":"vm","path":"C:/Users/prici/Proyectos/PomodoroApp/test/ciclo_pomodoro_test.dart"},"type":"suite","time":0}
+{"test":{"id":1,"name":"loading C:/Users/prici/Proyectos/PomodoroApp/test/ciclo_pomodoro_test.dart","suiteID":0,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":2}
+{"suite":{"id":2,"platform":"vm","path":"C:/Users/prici/Proyectos/PomodoroApp/test/database_helper_test.dart"},"type":"suite","time":8}
+{"test":{"id":3,"name":"loading C:/Users/prici/Proyectos/PomodoroApp/test/database_helper_test.dart","suiteID":2,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":8}
+{"suite":{"id":4,"platform":"vm","path":"C:/Users/prici/Proyectos/PomodoroApp/test/estadisticas_service_test.dart"},"type":"suite","time":9}
+{"test":{"id":5,"name":"loading C:/Users/prici/Proyectos/PomodoroApp/test/estadisticas_service_test.dart","suiteID":4,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":9}
+{"suite":{"id":6,"platform":"vm","path":"C:/Users/prici/Proyectos/PomodoroApp/test/resumen_estadisticas_test.dart"},"type":"suite","time":9}
+{"test":{"id":7,"name":"loading C:/Users/prici/Proyectos/PomodoroApp/test/resumen_estadisticas_test.dart","suiteID":6,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":9}
+{"suite":{"id":8,"platform":"vm","path":"C:/Users/prici/Proyectos/PomodoroApp/test/sync_service_test.dart"},"type":"suite","time":9}
+{"test":{"id":9,"name":"loading C:/Users/prici/Proyectos/PomodoroApp/test/sync_service_test.dart","suiteID":8,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":9}
+{"suite":{"id":10,"platform":"vm","path":"C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart"},"type":"suite","time":10}
+{"test":{"id":11,"name":"loading C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart","suiteID":10,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":11}
+{"count":6,"time":11,"type":"allSuites"}
+
+[{"event":"test.startedProcess","params":{"vmServiceUri":null}}]
+
+[{"event":"test.startedProcess","params":{"vmServiceUri":null}}]
+
+[{"event":"test.startedProcess","params":{"vmServiceUri":null}}]
+{"testID":1,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":2675}
+{"group":{"id":12,"suiteID":0,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":15,"line":null,"column":null,"url":null},"type":"group","time":2680}
+{"test":{"id":13,"name":"no inicia una fase de trabajo sin tarea","suiteID":0,"groupIDs":[12],"metadata":{"skip":false,"skipReason":null},"line":7,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/ciclo_pomodoro_test.dart"},"type":"testStart","time":2681}
+{"testID":13,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2719}
+{"test":{"id":14,"name":"la fase termina cuando pasa el tiempo real","suiteID":0,"groupIDs":[12],"metadata":{"skip":false,"skipReason":null},"line":14,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/ciclo_pomodoro_test.dart"},"type":"testStart","time":2721}
+{"testID":14,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2731}
+{"test":{"id":15,"name":"pausar conserva el tiempo restante","suiteID":0,"groupIDs":[12],"metadata":{"skip":false,"skipReason":null},"line":24,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/ciclo_pomodoro_test.dart"},"type":"testStart","time":2732}
+{"testID":15,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2738}
+{"test":{"id":16,"name":"al terminar el trabajo devuelve la sesión y pasa a descanso","suiteID":0,"groupIDs":[12],"metadata":{"skip":false,"skipReason":null},"line":33,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/ciclo_pomodoro_test.dart"},"type":"testStart","time":2739}
+{"testID":16,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2750}
+{"test":{"id":17,"name":"al terminar el descanso no devuelve sesión y vuelve a trabajo","suiteID":0,"groupIDs":[12],"metadata":{"skip":false,"skipReason":null},"line":48,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/ciclo_pomodoro_test.dart"},"type":"testStart","time":2751}
+{"testID":17,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2757}
+{"test":{"id":18,"name":"cancelar descarta la sesión y restablece la fase de trabajo","suiteID":0,"groupIDs":[12],"metadata":{"skip":false,"skipReason":null},"line":58,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/ciclo_pomodoro_test.dart"},"type":"testStart","time":2758}
+{"testID":18,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2762}
+{"test":{"id":19,"name":"aplicar tiempos no cambia nada mientras el reloj corre y aplica en la siguiente fase","suiteID":0,"groupIDs":[12],"metadata":{"skip":false,"skipReason":null},"line":67,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/ciclo_pomodoro_test.dart"},"type":"testStart","time":2763}
+{"testID":19,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2768}
+{"test":{"id":20,"name":"al completar los ciclos configurados prepara un descanso largo y reinicia el contador","suiteID":0,"groupIDs":[12],"metadata":{"skip":false,"skipReason":null},"line":82,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/ciclo_pomodoro_test.dart"},"type":"testStart","time":2769}
+{"testID":20,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2773}
+{"test":{"id":21,"name":"CP-TD-02 cancelar sin haber iniciado","suiteID":0,"groupIDs":[12],"metadata":{"skip":false,"skipReason":null},"line":111,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/ciclo_pomodoro_test.dart"},"type":"testStart","time":2773}
+{"testID":21,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2778}
+{"test":{"id":22,"name":"CP-TD-03 iniciar un trabajo de 25 min con tarea, dejar que termine, finalizar la fase, iniciar el descanso y cancelar","suiteID":0,"groupIDs":[12],"metadata":{"skip":false,"skipReason":null},"line":124,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/ciclo_pomodoro_test.dart"},"type":"testStart","time":2778}
+{"testID":22,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2784}
+{"test":{"id":23,"name":"CP-ES-07 iniciar, pausar a los 5 min, esperar 25 min en pausa y reanudar","suiteID":0,"groupIDs":[12],"metadata":{"skip":false,"skipReason":null},"line":147,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/ciclo_pomodoro_test.dart"},"type":"testStart","time":2785}
+{"testID":23,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2791}
+{"test":{"id":24,"name":"CP-CB-02 llamar a finalizarFase en un trabajo que nunca inició","suiteID":0,"groupIDs":[12],"metadata":{"skip":false,"skipReason":null},"line":175,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/ciclo_pomodoro_test.dart"},"type":"testStart","time":2791}
+{"testID":24,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2796}
+{"test":{"id":25,"name":"CP-ES-08 iniciar el descanso, pausarlo y reanudarlo","suiteID":0,"groupIDs":[12],"metadata":{"skip":false,"skipReason":null},"line":187,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/ciclo_pomodoro_test.dart"},"type":"testStart","time":2797}
+{"testID":25,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2802}
+{"test":{"id":26,"name":"CP-ES-09 iniciar un trabajo, pausarlo y cancelar","suiteID":0,"groupIDs":[12],"metadata":{"skip":false,"skipReason":null},"line":216,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/ciclo_pomodoro_test.dart"},"type":"testStart","time":2802}
+{"testID":26,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2809}
+{"test":{"id":27,"name":"CP-ES-10 iniciar el descanso, pausarlo y cancelar","suiteID":0,"groupIDs":[12],"metadata":{"skip":false,"skipReason":null},"line":231,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/ciclo_pomodoro_test.dart"},"type":"testStart","time":2809}
+
+[{"event":"test.startedProcess","params":{"vmServiceUri":null}}]
+{"testID":27,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2830}
+{"testID":3,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":2931}
+{"group":{"id":28,"suiteID":2,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":3,"line":null,"column":null,"url":null},"type":"group","time":2931}
+{"test":{"id":29,"name":"(setUpAll)","suiteID":2,"groupIDs":[28],"metadata":{"skip":false,"skipReason":null},"line":6,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/database_helper_test.dart"},"type":"testStart","time":2932}
+{"testID":29,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":3020}
+{"test":{"id":30,"name":"inserta tarea con prioridad y pomodoros estimados y la exporta para sync","suiteID":2,"groupIDs":[28],"metadata":{"skip":false,"skipReason":null},"line":19,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/database_helper_test.dart"},"type":"testStart","time":3020}
+{"testID":30,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3128}
+{"test":{"id":31,"name":"eliminarTarea borra sus sesiones en cascada y registra el tombstone en tareas_eliminadas","suiteID":2,"groupIDs":[28],"metadata":{"skip":false,"skipReason":null},"line":38,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/database_helper_test.dart"},"type":"testStart","time":3129}
+{"testID":31,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3172}
+{"test":{"id":32,"name":"las restricciones CHECK rechazan prioridad fuera de 1..3 o estado inválido","suiteID":2,"groupIDs":[28],"metadata":{"skip":false,"skipReason":null},"line":68,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/database_helper_test.dart"},"type":"testStart","time":3173}
+{"testID":5,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":3183}
+{"group":{"id":33,"suiteID":4,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":4,"line":null,"column":null,"url":null},"type":"group","time":3184}
+{"test":{"id":34,"name":"por día: 14 barras y la última es hoy con 50 min","suiteID":4,"groupIDs":[33],"metadata":{"skip":false,"skipReason":null},"line":13,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/estadisticas_service_test.dart"},"type":"testStart","time":3184}
+{"testID":32,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3206}
+{"test":{"id":35,"name":"(tearDownAll)","suiteID":2,"groupIDs":[28],"metadata":{"skip":false,"skipReason":null},"line":15,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/database_helper_test.dart"},"type":"testStart","time":3207}
+{"testID":35,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":3215}
+
+[{"event":"test.startedProcess","params":{"vmServiceUri":null}}]
+{"testID":34,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3248}
+{"test":{"id":36,"name":"por semana: agrupa desde el lunes","suiteID":4,"groupIDs":[33],"metadata":{"skip":false,"skipReason":null},"line":27,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/estadisticas_service_test.dart"},"type":"testStart","time":3249}
+{"testID":36,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3256}
+{"test":{"id":37,"name":"por mes: 12 barras y el mes actual suma 75 min","suiteID":4,"groupIDs":[33],"metadata":{"skip":false,"skipReason":null},"line":41,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/estadisticas_service_test.dart"},"type":"testStart","time":3256}
+{"testID":37,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3262}
+{"test":{"id":38,"name":"sin sesiones todas las barras quedan en cero","suiteID":4,"groupIDs":[33],"metadata":{"skip":false,"skipReason":null},"line":53,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/estadisticas_service_test.dart"},"type":"testStart","time":3263}
+{"testID":38,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3268}
+{"testID":7,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":3478}
+{"group":{"id":39,"suiteID":6,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":4,"line":null,"column":null,"url":null},"type":"group","time":3478}
+{"test":{"id":40,"name":"suma minutos, cuenta sesiones de hoy y calcula la racha","suiteID":6,"groupIDs":[39],"metadata":{"skip":false,"skipReason":null},"line":25,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/resumen_estadisticas_test.dart"},"type":"testStart","time":3478}
+{"testID":40,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3525}
+{"test":{"id":41,"name":"agrupa por tarea y marca las tareas borradas","suiteID":6,"groupIDs":[39],"metadata":{"skip":false,"skipReason":null},"line":33,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/resumen_estadisticas_test.dart"},"type":"testStart","time":3525}
+{"testID":41,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3532}
+{"test":{"id":42,"name":"el desglose por día de una tarea suma solo esa tarea","suiteID":6,"groupIDs":[39],"metadata":{"skip":false,"skipReason":null},"line":40,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/resumen_estadisticas_test.dart"},"type":"testStart","time":3533}
+{"testID":42,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3540}
+{"test":{"id":43,"name":"sin sesiones la racha es cero","suiteID":6,"groupIDs":[39],"metadata":{"skip":false,"skipReason":null},"line":47,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/resumen_estadisticas_test.dart"},"type":"testStart","time":3541}
+{"testID":43,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3547}
+
+[{"event":"test.startedProcess","params":{"vmServiceUri":null}}]
+{"testID":9,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":3894}
+{"group":{"id":44,"suiteID":8,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":4,"line":null,"column":null,"url":null},"type":"group","time":3894}
+{"test":{"id":45,"name":"iniciarSesion guarda el token de Sanctum cuando la API responde 200 (MockClient)","suiteID":8,"groupIDs":[44],"metadata":{"skip":false,"skipReason":null},"line":14,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/sync_service_test.dart"},"type":"testStart","time":3894}
+{"testID":45,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3961}
+{"test":{"id":46,"name":"iniciarSesion maneja el límite de 10 intentos por minuto (429)","suiteID":8,"groupIDs":[44],"metadata":{"skip":false,"skipReason":null},"line":41,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/sync_service_test.dart"},"type":"testStart","time":3961}
+{"testID":46,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3968}
+{"test":{"id":47,"name":"sincronizar envía payload, recibe conteos y limpia tareas_eliminadas (Mock de API y BD)","suiteID":8,"groupIDs":[44],"metadata":{"skip":false,"skipReason":null},"line":54,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/sync_service_test.dart"},"type":"testStart","time":3968}
+{"testID":47,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3982}
+{"test":{"id":48,"name":"sincronizar conserva los borrados pendientes cuando la API responde 422 (tarea ajena)","suiteID":8,"groupIDs":[44],"metadata":{"skip":false,"skipReason":null},"line":111,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/sync_service_test.dart"},"type":"testStart","time":3983}
+{"testID":48,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3990}
+{"testID":11,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":4366}
+{"group":{"id":49,"suiteID":10,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":24,"line":null,"column":null,"url":null},"type":"group","time":4367}
+{"test":{"id":50,"name":"(setUpAll)","suiteID":10,"groupIDs":[49],"metadata":{"skip":false,"skipReason":null},"line":10,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart"},"type":"testStart","time":4367}
+{"testID":50,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":4414}
+{"test":{"id":51,"name":"CP-VL-01a título vacío","suiteID":10,"groupIDs":[49],"metadata":{"skip":false,"skipReason":null},"line":174,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":55,"root_column":3,"root_url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart"},"type":"testStart","time":4415}
+{"testID":51,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":6353}
+{"test":{"id":52,"name":"CP-VL-01b título de tres espacios","suiteID":10,"groupIDs":[49],"metadata":{"skip":false,"skipReason":null},"line":174,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":69,"root_column":3,"root_url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart"},"type":"testStart","time":6354}
+{"testID":52,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":6669}
+{"test":{"id":53,"name":"CP-VL-01c título \"a\" (1 carácter)","suiteID":10,"groupIDs":[49],"metadata":{"skip":false,"skipReason":null},"line":174,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":84,"root_column":3,"root_url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart"},"type":"testStart","time":6670}
+{"testID":53,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":7102}
+{"test":{"id":54,"name":"CP-VL-01d título de 120 caracteres","suiteID":10,"groupIDs":[49],"metadata":{"skip":false,"skipReason":null},"line":174,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":98,"root_column":3,"root_url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart"},"type":"testStart","time":7103}
+{"testID":54,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":7427}
+{"test":{"id":55,"name":"CP-VL-01e escribir 121 caracteres","suiteID":10,"groupIDs":[49],"metadata":{"skip":false,"skipReason":null},"line":174,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":116,"root_column":3,"root_url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart"},"type":"testStart","time":7427}
+{"testID":55,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":7677}
+{"test":{"id":56,"name":"CP-VL-02a pomodoros 0","suiteID":10,"groupIDs":[49],"metadata":{"skip":false,"skipReason":null},"line":174,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":131,"root_column":3,"root_url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart"},"type":"testStart","time":7678}
+{"testID":56,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":7985}
+{"test":{"id":57,"name":"CP-VL-02b pomodoros 1","suiteID":10,"groupIDs":[49],"metadata":{"skip":false,"skipReason":null},"line":174,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":152,"root_column":3,"root_url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart"},"type":"testStart","time":7986}
+{"testID":57,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":8278}
+{"test":{"id":58,"name":"CP-VL-02c pomodoros 20","suiteID":10,"groupIDs":[49],"metadata":{"skip":false,"skipReason":null},"line":174,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":175,"root_column":3,"root_url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart"},"type":"testStart","time":8279}
+{"testID":58,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":8568}
+{"test":{"id":59,"name":"CP-VL-02d pomodoros 21","suiteID":10,"groupIDs":[49],"metadata":{"skip":false,"skipReason":null},"line":174,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":198,"root_column":3,"root_url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart"},"type":"testStart","time":8568}
+{"testID":59,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":8816}
+{"test":{"id":60,"name":"CP-VL-02e pulsar \"Disminuir\" con valor 1","suiteID":10,"groupIDs":[49],"metadata":{"skip":false,"skipReason":null},"line":174,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":219,"root_column":3,"root_url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart"},"type":"testStart","time":8816}
+{"testID":60,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":9080}
+{"test":{"id":61,"name":"CP-VL-02f pulsar \"Aumentar\" con valor 20","suiteID":10,"groupIDs":[49],"metadata":{"skip":false,"skipReason":null},"line":174,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":237,"root_column":3,"root_url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart"},"type":"testStart","time":9081}
+{"testID":61,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":9337}
+{"test":{"id":62,"name":"CP-VL-03a minutos de trabajo vacío","suiteID":10,"groupIDs":[49],"metadata":{"skip":false,"skipReason":null},"line":174,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":255,"root_column":3,"root_url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart"},"type":"testStart","time":9337}
+{"testID":62,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":9623}
+{"test":{"id":63,"name":"CP-VL-03b minutos de trabajo 0","suiteID":10,"groupIDs":[49],"metadata":{"skip":false,"skipReason":null},"line":174,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":271,"root_column":3,"root_url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart"},"type":"testStart","time":9624}
+{"testID":63,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":9871}
+{"test":{"id":64,"name":"CP-VL-03c minutos de trabajo 121","suiteID":10,"groupIDs":[49],"metadata":{"skip":false,"skipReason":null},"line":174,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":287,"root_column":3,"root_url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart"},"type":"testStart","time":9872}
+{"testID":64,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":10117}
+{"test":{"id":65,"name":"CP-VL-03d minutos de trabajo 1","suiteID":10,"groupIDs":[49],"metadata":{"skip":false,"skipReason":null},"line":174,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":303,"root_column":3,"root_url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart"},"type":"testStart","time":10117}
+{"testID":65,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":10394}
+{"test":{"id":66,"name":"CP-VL-03e minutos de trabajo 120","suiteID":10,"groupIDs":[49],"metadata":{"skip":false,"skipReason":null},"line":174,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":320,"root_column":3,"root_url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart"},"type":"testStart","time":10394}
+{"testID":66,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":10615}
+{"test":{"id":67,"name":"CP-VL-04a ciclos 1","suiteID":10,"groupIDs":[49],"metadata":{"skip":false,"skipReason":null},"line":174,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":337,"root_column":3,"root_url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart"},"type":"testStart","time":10616}
+{"testID":67,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":10814}
+{"test":{"id":68,"name":"CP-VL-04b ciclos 2","suiteID":10,"groupIDs":[49],"metadata":{"skip":false,"skipReason":null},"line":174,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":353,"root_column":3,"root_url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart"},"type":"testStart","time":10814}
+{"testID":68,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":11021}
+{"test":{"id":69,"name":"CP-VL-04c ciclos 8","suiteID":10,"groupIDs":[49],"metadata":{"skip":false,"skipReason":null},"line":174,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":371,"root_column":3,"root_url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart"},"type":"testStart","time":11022}
+{"testID":69,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":11263}
+{"test":{"id":70,"name":"CP-VL-04d ciclos 9","suiteID":10,"groupIDs":[49],"metadata":{"skip":false,"skipReason":null},"line":174,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":389,"root_column":3,"root_url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart"},"type":"testStart","time":11263}
+{"testID":70,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":11540}
+{"test":{"id":71,"name":"CP-VL-05a trabajo 14","suiteID":10,"groupIDs":[49],"metadata":{"skip":false,"skipReason":null},"line":174,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":405,"root_column":3,"root_url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart"},"type":"testStart","time":11540}
+{"testID":71,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":11822}
+{"test":{"id":72,"name":"CP-VL-05b trabajo 15","suiteID":10,"groupIDs":[49],"metadata":{"skip":false,"skipReason":null},"line":174,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":421,"root_column":3,"root_url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart"},"type":"testStart","time":11823}
+{"testID":72,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":12036}
+{"test":{"id":73,"name":"CP-VL-05c trabajo 60","suiteID":10,"groupIDs":[49],"metadata":{"skip":false,"skipReason":null},"line":174,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":440,"root_column":3,"root_url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart"},"type":"testStart","time":12036}
+{"testID":73,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":12231}
+{"test":{"id":74,"name":"CP-VL-05d trabajo 61","suiteID":10,"groupIDs":[49],"metadata":{"skip":false,"skipReason":null},"line":174,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":459,"root_column":3,"root_url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart"},"type":"testStart","time":12231}
+{"testID":74,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":12443}
+{"test":{"id":75,"name":"(tearDownAll)","suiteID":10,"groupIDs":[49],"metadata":{"skip":false,"skipReason":null},"line":20,"column":3,"url":"file:///C:/Users/prici/Proyectos/PomodoroApp/test/validaciones_widget_test.dart"},"type":"testStart","time":12444}
+{"testID":75,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":12448}
+{"success":true,"type":"done","time":12489}
