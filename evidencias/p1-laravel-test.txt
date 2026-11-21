@@ -1,0 +1,16 @@
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Unit\ExampleTest[39m
+  [32;1m✓[39;22m[90m [39m[90mthat true is true[39m
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\AuthTest[39m
+  [32;1m✓[39;22m[90m [39m[90musuario puede registrarse y recibir token[39m[90m                                                                   [39m [90m0.82s[39m  
+  [32;1m✓[39;22m[90m [39m[90mlogin rechaza credenciales invalidas[39m[90m                                                                        [39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mlogout revoca el token personal[39m[90m                                                                             [39m [90m0.08s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\SyncTest[39m
+  [32;1m✓[39;22m[90m [39m[90msincroniza tareas sesiones y borrados con last write wins[39m[90m                                                   [39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mrechaza con 422 sesion que apunta a tarea ajena[39m[90m                                                             [39m [90m0.08s[39m  
+
+  [90mTests:[39m    [32;1m6 passed[39;22m[90m (19 assertions)[39m
+  [90mDuration:[39m [39m1.92s[39m
+
