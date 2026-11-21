@@ -1,0 +1,54 @@
+name: Defecto
+description: Registrar un defecto encontrado en pruebas, revisión o piloto
+title: "[DEF] "
+labels: ["defecto"]
+body:
+  - type: input
+    id: caso
+    attributes:
+      label: Caso de prueba o requisito
+      placeholder: CP-VL-21, RF-04
+    validations:
+      required: true
+  - type: dropdown
+    id: severidad
+    attributes:
+      label: Severidad
+      options: [Crítica, Mayor, Menor, Cosmética]
+    validations:
+      required: true
+  - type: dropdown
+    id: prioridad
+    attributes:
+      label: Prioridad
+      options: [Alta, Media, Baja]
+    validations:
+      required: true
+  - type: textarea
+    id: pasos
+    attributes:
+      label: Pasos para reproducirlo
+    validations:
+      required: true
+  - type: textarea
+    id: esperado
+    attributes:
+      label: Resultado esperado
+    validations:
+      required: true
+  - type: textarea
+    id: obtenido
+    attributes:
+      label: Resultado obtenido
+    validations:
+      required: true
+  - type: input
+    id: entorno
+    attributes:
+      label: Entorno
+      placeholder: Android 14, Pixel 6, APK 1.0.0 (2), staging
+  - type: textarea
+    id: evidencia
+    attributes:
+      label: Evidencia
+      description: Capturas, registro o salida de la prueba
