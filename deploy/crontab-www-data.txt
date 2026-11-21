@@ -1,0 +1,3 @@
+0 3 * * * /usr/bin/sqlite3 /var/www/pomodoro/backend/database/database.sqlite "DELETE FROM personal_access_tokens WHERE expires_at < datetime('now');"
+30 3 * * * /usr/bin/sqlite3 /var/www/pomodoro/backend/database/database.sqlite ".backup '/var/backups/pomodoro/pomodoro-$(date +\%F).sqlite'"
+0 4 * * * /usr/bin/find /var/backups/pomodoro -name "pomodoro-*.sqlite" -type f -mtime +14 -delete
