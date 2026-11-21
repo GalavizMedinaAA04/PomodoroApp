@@ -107,4 +107,143 @@ void main() {
     expect(ciclo.segundosRestantes, 15 * 60);
     expect(ciclo.ciclosCompletados, 0);
   });
+
+  test('CP-TD-02 cancelar sin haber iniciado', () {
+    // Preparar
+    final ciclo = CicloPomodoro(minutosTrabajo: 25, minutosDescanso: 5);
+
+    // Ejecutar
+    ciclo.cancelar();
+
+    // Verificar
+    expect(ciclo.fase, FasePomodoro.trabajo);
+    expect(ciclo.segundosRestantes, 25 * 60);
+    expect(ciclo.haySesionEnCurso, isFalse);
+  });
+
+  test(
+    'CP-TD-03 iniciar un trabajo de 25 min con tarea, dejar que termine, finalizar la fase, iniciar el descanso y cancelar',
+    () {
+      // Preparar
+      final ciclo = CicloPomodoro(minutosTrabajo: 25, minutosDescanso: 5);
+      ciclo.iniciar(tareaId: 'tarea-1', ahora: inicio);
+      ciclo.sincronizar(inicio.add(const Duration(minutes: 25)));
+      ciclo.finalizarFase();
+      ciclo.iniciar(
+        tareaId: null,
+        ahora: inicio.add(const Duration(minutes: 25)),
+      );
+
+      // Ejecutar
+      ciclo.cancelar();
+
+      // Verificar
+      expect(ciclo.fase, FasePomodoro.trabajo);
+      expect(ciclo.segundosRestantes, 25 * 60);
+      expect(ciclo.esDescansoLargo, isFalse);
+    },
+  );
+
+  test(
+    'CP-ES-07 iniciar, pausar a los 5 min, esperar 25 min en pausa y reanudar',
+    () {
+      // Preparar
+      final ciclo = CicloPomodoro(minutosTrabajo: 25, minutosDescanso: 5);
+      ciclo.iniciar(tareaId: 'tarea-1', ahora: inicio);
+      final tPausa = inicio.add(const Duration(minutes: 5));
+      ciclo.pausar(tPausa);
+      final tReanudar = tPausa.add(const Duration(minutes: 25));
+
+      // Ejecutar
+      ciclo.iniciar(tareaId: 'tarea-1', ahora: tReanudar);
+      final terminoA19 = ciclo.sincronizar(
+        tReanudar.add(const Duration(minutes: 19)),
+      );
+      final restantesA19 = ciclo.segundosRestantes;
+      final terminoA20 = ciclo.sincronizar(
+        tReanudar.add(const Duration(minutes: 20)),
+      );
+
+      // Verificar
+      expect(terminoA19, isFalse);
+      expect(restantesA19, 1 * 60);
+      expect(terminoA20, isTrue);
+      expect(ciclo.segundosRestantes, 0);
+    },
+  );
+
+  test('CP-CB-02 llamar a finalizarFase en un trabajo que nunca inició', () {
+    // Preparar
+    final ciclo = CicloPomodoro(minutosTrabajo: 25, minutosDescanso: 5);
+
+    // Ejecutar
+    final sesion = ciclo.finalizarFase();
+
+    // Verificar
+    expect(sesion, isNull);
+    expect(ciclo.fase, FasePomodoro.descanso);
+  });
+
+  test('CP-ES-08 iniciar el descanso, pausarlo y reanudarlo', () {
+    // Preparar
+    final ciclo = CicloPomodoro(minutosTrabajo: 25, minutosDescanso: 5);
+    ciclo.iniciar(tareaId: 'tarea-1', ahora: inicio);
+    ciclo.sincronizar(inicio.add(const Duration(minutes: 25)));
+    ciclo.finalizarFase();
+    final inicioDescanso = inicio.add(const Duration(minutes: 25));
+    ciclo.iniciar(tareaId: null, ahora: inicioDescanso);
+
+    // Ejecutar
+    final tPausa = inicioDescanso.add(const Duration(minutes: 2));
+    ciclo.pausar(tPausa);
+    final restantesEnPausa = ciclo.segundosRestantes;
+    final tReanudar = tPausa.add(const Duration(minutes: 10));
+    ciclo.iniciar(tareaId: null, ahora: tReanudar);
+    final terminoAntes = ciclo.sincronizar(
+      tReanudar.add(const Duration(minutes: 2)),
+    );
+    final terminoAlFinal = ciclo.sincronizar(
+      tReanudar.add(const Duration(minutes: 3)),
+    );
+
+    // Verificar
+    expect(restantesEnPausa, 3 * 60);
+    expect(terminoAntes, isFalse);
+    expect(terminoAlFinal, isTrue);
+    expect(ciclo.segundosRestantes, 0);
+  });
+
+  test('CP-ES-09 iniciar un trabajo, pausarlo y cancelar', () {
+    // Preparar
+    final ciclo = CicloPomodoro(minutosTrabajo: 25, minutosDescanso: 5);
+    ciclo.iniciar(tareaId: 'tarea-1', ahora: inicio);
+    ciclo.pausar(inicio.add(const Duration(minutes: 10)));
+
+    // Ejecutar
+    ciclo.cancelar();
+
+    // Verificar
+    expect(ciclo.fase, FasePomodoro.trabajo);
+    expect(ciclo.segundosRestantes, 25 * 60);
+    expect(ciclo.haySesionEnCurso, isFalse);
+  });
+
+  test('CP-ES-10 iniciar el descanso, pausarlo y cancelar', () {
+    // Preparar
+    final ciclo = CicloPomodoro(minutosTrabajo: 25, minutosDescanso: 5);
+    ciclo.iniciar(tareaId: 'tarea-1', ahora: inicio);
+    ciclo.sincronizar(inicio.add(const Duration(minutes: 25)));
+    ciclo.finalizarFase();
+    final inicioDescanso = inicio.add(const Duration(minutes: 25));
+    ciclo.iniciar(tareaId: null, ahora: inicioDescanso);
+    ciclo.pausar(inicioDescanso.add(const Duration(minutes: 2)));
+
+    // Ejecutar
+    ciclo.cancelar();
+
+    // Verificar
+    expect(ciclo.fase, FasePomodoro.trabajo);
+    expect(ciclo.segundosRestantes, 25 * 60);
+    expect(ciclo.esDescansoLargo, isFalse);
+  });
 }
