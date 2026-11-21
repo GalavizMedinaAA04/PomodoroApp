@@ -50,4 +50,23 @@ void main() {
     expect(resumen.rachaDias, 0);
     expect(resumen.minutosTotales, 0);
   });
+
+  test('CP-CB-06 desglosePorAnioMesDia organiza año, nombre de mes y días de una tarea', () {
+    // Preparar
+    final resumen = EstadisticasService.resumir(sesiones, hoy: hoy);
+
+    // Ejecutar
+    final desglose = EstadisticasService.desglosePorAnioMesDia(
+      resumen,
+      'Cálculo',
+    );
+
+    // Verificar
+    expect(desglose.keys, ['2026']);
+    expect(desglose['2026']!.keys, ['Octubre']);
+    expect(desglose['2026']!['Octubre'], [
+      {'dia': '20', 'minutos': 25},
+      {'dia': '19', 'minutos': 25},
+    ]);
+  });
 }

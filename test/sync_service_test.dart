@@ -137,4 +137,82 @@ void main() {
     expect(resultado.mensaje, contains('otro usuario'));
     expect(seLimpio, isFalse);
   });
+
+  test('CP-CB-07 registrar guarda token con 201, maneja error 422 y cerrarSesion revoca y limpia', () async {
+    // Preparar
+    var codigoRegistro = 201;
+    final mockHttp = MockClient((request) async {
+      if (request.url.path == '/api/register') {
+        if (codigoRegistro == 201) {
+          return http.Response(jsonEncode({'token': 'tok-reg-1'}), 201);
+        }
+        return http.Response('no-json', 422);
+      }
+      if (request.url.path == '/api/logout') {
+        return http.Response('', 204);
+      }
+      return http.Response('', 500);
+    });
+    final service = SyncService(client: mockHttp);
+
+    // Ejecutar
+    final regOk = await service.registrar(
+      nombre: 'Ana',
+      correo: 'ana@itm.mx',
+      clave: 'secreto123',
+      baseUrl: 'https://api.pomodoro.test/',
+    );
+    final prefs = await SharedPreferences.getInstance();
+    final tokenGuardado = prefs.getString(SyncService.claveToken);
+
+    codigoRegistro = 422;
+    final regFallo = await service.registrar(
+      nombre: 'Ana',
+      correo: 'ana@itm.mx',
+      clave: 'secreto123',
+    );
+    final cierre = await service.cerrarSesion();
+
+    // Verificar
+    expect(regOk.exito, isTrue);
+    expect(tokenGuardado, 'tok-reg-1');
+    expect(regFallo.exito, isFalse);
+    expect(regFallo.mensaje, contains('422'));
+    expect(cierre.exito, isTrue);
+    expect(prefs.getString(SyncService.claveToken), isNull);
+  });
+
+  test('CP-CB-08 sincronizar sin token, respuesta 401 que limpia sesión y error 500 del servidor', () async {
+    // Preparar
+    var codigoSync = 401;
+    final mockHttp = MockClient((_) async => http.Response('{}', codigoSync));
+    final service = SyncService(
+      client: mockHttp,
+      exportarDatos: () async => {
+        'tasks': [],
+        'sessions': [],
+        'tareas_eliminadas': [],
+      },
+      limpiarEliminadas: (_) async {},
+    );
+
+    // Ejecutar
+    final sinToken = await service.sincronizar();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(SyncService.claveToken, 'token-vencido');
+    final resp401 = await service.sincronizar();
+    final tokenTras401 = prefs.getString(SyncService.claveToken);
+
+    await prefs.setString(SyncService.claveToken, 'token-activo');
+    codigoSync = 500;
+    final resp500 = await service.sincronizar();
+
+    // Verificar
+    expect(sinToken.exito, isFalse);
+    expect(sinToken.mensaje, contains('Inicia sesión'));
+    expect(resp401.exito, isFalse);
+    expect(tokenTras401, isNull);
+    expect(resp500.exito, isFalse);
+    expect(resp500.mensaje, contains('500'));
+  });
 }
