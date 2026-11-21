@@ -1,22 +1,49 @@
 import http from 'k6/http';
 import { check, sleep } from 'k6';
+import { uuidv4 } from 'https://jslib.k6.io/k6-utils/1.4.0/index.js';
 
 export const options = {
   vus: 100,
-  duration: '30s',
+  duration: '60s',
   thresholds: {
-    http_req_duration: ['p(95)<500'], // RNF-02: p95 <= 500 ms con 100 usuarios concurrentes
+    http_req_duration: ['p(95)<500'],
+    http_req_failed: ['rate<0.01'],
   },
 };
 
-const BASE_URL = __ENV.API_URL || 'http://127.0.0.1:8000';
-const TOKEN = __ENV.API_TOKEN || '';
+const BASE_URL = __ENV.API_URL;
+const EMAIL = __ENV.EMAIL;
+const PASSWORD = __ENV.PASSWORD;
 
-export default function () {
+export function setup() {
+  const loginRes = http.post(
+    `${BASE_URL}/api/login`,
+    JSON.stringify({
+      email: EMAIL,
+      password: PASSWORD,
+      device_name: 'k6',
+    }),
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    }
+  );
+
+  check(loginRes, {
+    'login status es 200': (r) => r.status === 200,
+  });
+
+  const body = loginRes.json();
+  return { token: body ? body.token : '' };
+}
+
+export default function (data) {
   const payload = JSON.stringify({
     tasks: [
       {
-        id: '6f1c0000-0000-4000-8000-000000000001',
+        id: uuidv4(),
         titulo: 'Prueba de carga RNF-02',
         prioridad: 2,
         completada: false,
@@ -32,13 +59,13 @@ export default function () {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      Authorization: `Bearer ${TOKEN}`,
+      Authorization: `Bearer ${data.token}`,
     },
   };
 
   const res = http.post(`${BASE_URL}/api/sync`, payload, params);
   check(res, {
-    'status es 200 o 401': (r) => r.status === 200 || r.status === 401,
+    'status es 200': (r) => r.status === 200,
   });
   sleep(1);
 }
