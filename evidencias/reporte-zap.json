@@ -1,0 +1,645 @@
+{
+	"@programName": "ZAP",
+	"@version": "2.17.0",
+	"@generated": "Sat, 21 Nov 2026 22:20:57",
+	"created": "2026-11-21T22:20:57.500171023Z",
+	"insights":[
+		{
+			"level": "Medium",
+			"reason": "Exceeded High",
+			"site": "https://teach-chamber-donation-kodak.trycloudflare.com",
+			"key": "insight.code.4xx",
+			"description": "Percentage of responses with status code 4xx",
+			"statistic": "98"
+		},
+		{
+			"level": "Low",
+			"reason": "Exceeded High",
+			"site": "https://teach-chamber-donation-kodak.trycloudflare.com",
+			"key": "insight.response.slow",
+			"description": "Percentage of slow responses",
+			"statistic": "98"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "https://teach-chamber-donation-kodak.trycloudflare.com",
+			"key": "insight.code.2xx",
+			"description": "Percentage of responses with status code 2xx",
+			"statistic": "1"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "https://teach-chamber-donation-kodak.trycloudflare.com",
+			"key": "insight.endpoint.ctype.application/json",
+			"description": "Percentage of endpoints with content type application/json",
+			"statistic": "57"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "https://teach-chamber-donation-kodak.trycloudflare.com",
+			"key": "insight.endpoint.ctype.text/html",
+			"description": "Percentage of endpoints with content type text/html",
+			"statistic": "38"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "https://teach-chamber-donation-kodak.trycloudflare.com",
+			"key": "insight.endpoint.method.GET",
+			"description": "Percentage of endpoints with method GET",
+			"statistic": "28"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "https://teach-chamber-donation-kodak.trycloudflare.com",
+			"key": "insight.endpoint.method.POST",
+			"description": "Percentage of endpoints with method POST",
+			"statistic": "71"
+		},
+		{
+			"level": "Info",
+			"reason": "Informational",
+			"site": "https://teach-chamber-donation-kodak.trycloudflare.com",
+			"key": "insight.endpoint.total",
+			"description": "Count of total endpoints",
+			"statistic": "21"
+		}
+	],
+	"site":[ 
+		{
+			"@name": "https://teach-chamber-donation-kodak.trycloudflare.com",
+			"@host": "teach-chamber-donation-kodak.trycloudflare.com",
+			"@port": "443",
+			"@ssl": "true",
+			"alerts": [ 
+				{
+					"pluginid": "10098",
+					"alertRef": "10098",
+					"alert": "Cross-Domain Misconfiguration",
+					"name": "Cross-Domain Misconfiguration",
+					"riskcode": "2",
+					"confidence": "2",
+					"riskdesc": "Medium (Medium)",
+					"desc": "<p>Web browser data loading may be possible, due to a Cross Origin Resource Sharing (CORS) misconfiguration on the web server.</p>",
+					"instances":[ 
+						{
+							"id": "3",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/api/login",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/api\/login ()({email,password,device_name})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "Access-Control-Allow-Origin: *",
+							"otherinfo": "The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing."
+						},
+						{
+							"id": "13",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/api/logout",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/api\/logout",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "Access-Control-Allow-Origin: *",
+							"otherinfo": "The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing."
+						},
+						{
+							"id": "4",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/api/register",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/api\/register ()({name,email,password,password_confirmation,device_name})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "Access-Control-Allow-Origin: *",
+							"otherinfo": "The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing."
+						},
+						{
+							"id": "15",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/api/sync",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/api\/sync ()({tasks:[{id,titulo,prioridad,completada,pomodoros_estimados,updated_at}],sessions:[{id,tarea_id,fecha_inicio,duracion_minutos,estado,updated_at}],tareas_eliminadas:[]})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "Access-Control-Allow-Origin: *",
+							"otherinfo": "The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing."
+						}
+					],
+					"count": "4",
+					"systemic": false,
+					"solution": "<p>Ensure that sensitive data is not available in an unauthenticated manner (using IP address white-listing, for instance).</p><p>Configure the \"Access-Control-Allow-Origin\" HTTP header to a more restrictive set of domains, or remove all CORS headers entirely, to allow the web browser to enforce the Same Origin Policy (SOP) in a more restrictive manner.</p>",
+					"otherinfo": "<p>The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing.</p>",
+					"reference": "<p>https://vulncat.fortify.com/en/detail?category=HTML5&subcategory=Overly%20Permissive%20CORS%20Policy</p>",
+					"cweid": "264",
+					"wascid": "14",
+					"sourceid": "4"
+				},
+				{
+					"pluginid": "10035",
+					"alertRef": "10035-1",
+					"alert": "Strict-Transport-Security Header Not Set",
+					"name": "Strict-Transport-Security Header Not Set",
+					"riskcode": "1",
+					"confidence": "3",
+					"riskdesc": "Low (High)",
+					"desc": "<p>HTTP Strict Transport Security (HSTS) is a web security policy mechanism whereby a web server declares that complying user agents (such as a web browser) are to interact with it using only secure HTTPS connections (i.e. HTTP layered over TLS/SSL). HSTS is an IETF standards track protocol and is specified in RFC 6797.</p>",
+					"instances":[ 
+						{
+							"id": "6",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/api/login",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/api\/login ()({email,password,device_name})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "14",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/api/logout",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/api\/logout",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "5",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/api/register",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/api\/register ()({name,email,password,password_confirmation,device_name})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"id": "17",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/api/sync",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/api\/sync ()({tasks:[{id,titulo,prioridad,completada,pomodoros_estimados,updated_at}],sessions:[{id,tarea_id,fecha_inicio,duracion_minutos,estado,updated_at}],tareas_eliminadas:[]})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						}
+					],
+					"count": "4",
+					"systemic": false,
+					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to enforce Strict-Transport-Security.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html</p><p>https://owasp.org/www-community/Security_Headers</p><p>https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security</p><p>https://caniuse.com/stricttransportsecurity</p><p>https://datatracker.ietf.org/doc/html/rfc6797</p>",
+					"cweid": "319",
+					"wascid": "15",
+					"sourceid": "4"
+				},
+				{
+					"pluginid": "100001",
+					"alertRef": "100001",
+					"alert": "Unexpected Content-Type was returned",
+					"name": "Unexpected Content-Type was returned",
+					"riskcode": "1",
+					"confidence": "3",
+					"riskdesc": "Low (High)",
+					"desc": "<p>A Content-Type of text/html was returned by the server.</p><p>This is not one of the types expected to be returned by an API.</p><p>Raised by the 'Alert on Unexpected Content Types' script</p>",
+					"instances":[ 
+						{
+							"id": "19",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "text/html",
+							"otherinfo": ""
+						},
+						{
+							"id": "1997",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "text/html",
+							"otherinfo": ""
+						},
+						{
+							"id": "1478",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/computeMetadata/v1/",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/computeMetadata\/v1\/ ()({email,password,device_name})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "text/html",
+							"otherinfo": ""
+						},
+						{
+							"id": "1471",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/latest/meta-data/",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/latest\/meta-data\/ ()({email,password,device_name})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "text/html",
+							"otherinfo": ""
+						},
+						{
+							"id": "1503",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/metadata/instance",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/metadata\/instance ()({email,password,device_name})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "text/html",
+							"otherinfo": ""
+						},
+						{
+							"id": "1506",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/metadata/v1",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/metadata\/v1 ()({email,password,device_name})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "text/html",
+							"otherinfo": ""
+						},
+						{
+							"id": "1485",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/opc/v1/instance/",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/opc\/v1\/instance\/ ()({email,password,device_name})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "text/html",
+							"otherinfo": ""
+						},
+						{
+							"id": "1492",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/opc/v2/instance/",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/opc\/v2\/instance\/ ()({email,password,device_name})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "text/html",
+							"otherinfo": ""
+						},
+						{
+							"id": "1509",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/openstack/latest/meta_data.json",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/openstack\/latest\/meta_data.json ()({email,password,device_name})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "text/html",
+							"otherinfo": ""
+						}
+					],
+					"count": "9",
+					"systemic": false,
+					"solution": "",
+					"otherinfo": "",
+					"reference": "",
+					"cweid": "-1",
+					"wascid": "-1",
+					"sourceid": "12"
+				},
+				{
+					"pluginid": "100000",
+					"alertRef": "100000-1",
+					"alert": "A Client Error response code was returned by the server",
+					"name": "A Client Error response code was returned by the server",
+					"riskcode": "0",
+					"confidence": "3",
+					"riskdesc": "Informational (High)",
+					"desc": "<p>A response code of 404 was returned by the server.</p><p>This may indicate that the application is failing to handle unexpected input correctly.</p><p>Raised by the 'Alert on HTTP Response Code Error' script</p>",
+					"instances":[ 
+						{
+							"id": "10",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/1370451638227594136",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/1370451638227594136",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "404",
+							"otherinfo": ""
+						},
+						{
+							"id": "25",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/api",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/api",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "404",
+							"otherinfo": ""
+						},
+						{
+							"id": "1998",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/api/",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/api\/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "404",
+							"otherinfo": ""
+						},
+						{
+							"id": "11",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/api/710654470813246021",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/api\/710654470813246021",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "404",
+							"otherinfo": ""
+						},
+						{
+							"id": "2241",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/api/actuator/health",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/api\/actuator\/health",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "404",
+							"otherinfo": ""
+						},
+						{
+							"id": "1",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/api/login",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/api\/login ()({email,password,device_name})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "401",
+							"otherinfo": ""
+						},
+						{
+							"id": "12",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/api/login",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/api\/login ()({email,password,device_name})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "422",
+							"otherinfo": ""
+						},
+						{
+							"id": "33",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/api/login",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/api\/login ()({email,password,device_name})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "429",
+							"otherinfo": ""
+						},
+						{
+							"id": "1995",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/api/login/",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/api\/login\/ ()({email,password,device_name})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "429",
+							"otherinfo": ""
+						},
+						{
+							"id": "1992",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/api/logout/",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/api\/logout\/",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "401",
+							"otherinfo": ""
+						},
+						{
+							"id": "0",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/api/register",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/api\/register ()({name,email,password,password_confirmation,device_name})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "422",
+							"otherinfo": ""
+						},
+						{
+							"id": "32",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/api/register",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/api\/register ()({name,email,password,password_confirmation,device_name})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "429",
+							"otherinfo": ""
+						},
+						{
+							"id": "1991",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/api/register/",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/api\/register\/ ()({name,email,password,password_confirmation,device_name})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "429",
+							"otherinfo": ""
+						},
+						{
+							"id": "9",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/api/sync",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/api\/sync ()({tasks:[{id,titulo,prioridad,completada,pomodoros_estimados,updated_at}],sessions:[{id,tarea_id,fecha_inicio,duracion_minutos,estado,updated_at}],tareas_eliminadas:[]})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "401",
+							"otherinfo": ""
+						},
+						{
+							"id": "1994",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/api/sync/",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/api\/sync\/ ()({tasks:[{id,titulo,prioridad,completada,pomodoros_estimados,updated_at}],sessions:[{id,tarea_id,fecha_inicio,duracion_minutos,estado,updated_at}],tareas_eliminadas:[]})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "401",
+							"otherinfo": ""
+						},
+						{
+							"id": "1477",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/computeMetadata/v1/",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/computeMetadata\/v1\/ ()({email,password,device_name})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "403",
+							"otherinfo": ""
+						},
+						{
+							"id": "1470",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/latest/meta-data/",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/latest\/meta-data\/ ()({email,password,device_name})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "403",
+							"otherinfo": ""
+						},
+						{
+							"id": "1502",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/metadata/instance",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/metadata\/instance ()({email,password,device_name})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "403",
+							"otherinfo": ""
+						},
+						{
+							"id": "1505",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/metadata/v1",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/metadata\/v1 ()({email,password,device_name})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "403",
+							"otherinfo": ""
+						},
+						{
+							"id": "1484",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/opc/v1/instance/",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/opc\/v1\/instance\/ ()({email,password,device_name})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "403",
+							"otherinfo": ""
+						},
+						{
+							"id": "1491",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/opc/v2/instance/",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/opc\/v2\/instance\/ ()({email,password,device_name})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "403",
+							"otherinfo": ""
+						},
+						{
+							"id": "1508",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/openstack/latest/meta_data.json",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/openstack\/latest\/meta_data.json ()({email,password,device_name})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "403",
+							"otherinfo": ""
+						}
+					],
+					"count": "22",
+					"systemic": false,
+					"solution": "",
+					"otherinfo": "",
+					"reference": "",
+					"cweid": "388",
+					"wascid": "20",
+					"sourceid": "7"
+				},
+				{
+					"pluginid": "10111",
+					"alertRef": "10111",
+					"alert": "Authentication Request Identified",
+					"name": "Authentication Request Identified",
+					"riskcode": "0",
+					"confidence": "3",
+					"riskdesc": "Informational (High)",
+					"desc": "<p>The given request has been identified as an authentication request. The 'Other Info' field contains a set of key=value lines which identify any relevant fields. If the request is in a context which has an Authentication Method set to \"Auto-Detect\" then this rule will change the authentication to match the request identified.</p>",
+					"instances":[ 
+						{
+							"id": "2",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/api/login",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/api\/login ()({email,password,device_name})",
+							"method": "POST",
+							"param": "email",
+							"attack": "",
+							"evidence": "password",
+							"otherinfo": "userParam=email\nuserValue=lucia@itm.mx\npasswordParam=password"
+						}
+					],
+					"count": "1",
+					"systemic": false,
+					"solution": "<p>This is an informational alert rather than a vulnerability and so there is nothing to fix.</p>",
+					"otherinfo": "<p>userParam=email</p><p>userValue=lucia@itm.mx</p><p>passwordParam=password</p>",
+					"reference": "<p>https://www.zaproxy.org/docs/desktop/addons/authentication-helper/auth-req-id/</p>",
+					"cweid": "-1",
+					"wascid": "-1",
+					"sourceid": "4"
+				},
+				{
+					"pluginid": "10049",
+					"alertRef": "10049-1",
+					"alert": "Non-Storable Content",
+					"name": "Non-Storable Content",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>The response contents are not storable by caching components such as proxy servers. If the response does not contain sensitive, personal or user-specific information, it may benefit from being stored and cached, to improve performance.</p>",
+					"instances":[ 
+						{
+							"id": "8",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/api/login",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/api\/login ()({email,password,device_name})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "private",
+							"otherinfo": ""
+						},
+						{
+							"id": "16",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/api/logout",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/api\/logout",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "private",
+							"otherinfo": ""
+						},
+						{
+							"id": "7",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/api/register",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/api\/register ()({name,email,password,password_confirmation,device_name})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "private",
+							"otherinfo": ""
+						},
+						{
+							"id": "18",
+							"uri": "https://teach-chamber-donation-kodak.trycloudflare.com/api/sync",
+							"nodeName": "https:\/\/teach-chamber-donation-kodak.trycloudflare.com\/api\/sync ()({tasks:[{id,titulo,prioridad,completada,pomodoros_estimados,updated_at}],sessions:[{id,tarea_id,fecha_inicio,duracion_minutos,estado,updated_at}],tareas_eliminadas:[]})",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "private",
+							"otherinfo": ""
+						}
+					],
+					"count": "4",
+					"systemic": false,
+					"solution": "<p>The content may be marked as storable by ensuring that the following conditions are satisfied:</p><p>The request method must be understood by the cache and defined as being cacheable (\"GET\", \"HEAD\", and \"POST\" are currently defined as cacheable)</p><p>The response status code must be understood by the cache (one of the 1XX, 2XX, 3XX, 4XX, or 5XX response classes are generally understood)</p><p>The \"no-store\" cache directive must not appear in the request or response header fields</p><p>For caching by \"shared\" caches such as \"proxy\" caches, the \"private\" response directive must not appear in the response</p><p>For caching by \"shared\" caches such as \"proxy\" caches, the \"Authorization\" header field must not appear in the request, unless the response explicitly allows it (using one of the \"must-revalidate\", \"public\", or \"s-maxage\" Cache-Control response directives)</p><p>In addition to the conditions above, at least one of the following conditions must also be satisfied by the response:</p><p>It must contain an \"Expires\" header field</p><p>It must contain a \"max-age\" response directive</p><p>For \"shared\" caches such as \"proxy\" caches, it must contain a \"s-maxage\" response directive</p><p>It must contain a \"Cache Control Extension\" that allows it to be cached</p><p>It must have a status code that is defined as cacheable by default (200, 203, 204, 206, 300, 301, 404, 405, 410, 414, 501).</p>",
+					"otherinfo": "",
+					"reference": "<p>https://datatracker.ietf.org/doc/html/rfc7234</p><p>https://datatracker.ietf.org/doc/html/rfc7231</p><p>https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html</p>",
+					"cweid": "524",
+					"wascid": "13",
+					"sourceid": "4"
+				}
+			]
+		}
+	],
+	"sequences":[
+	]
+
+}

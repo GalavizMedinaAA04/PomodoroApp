@@ -1,0 +1,424 @@
+openapi: 3.0.3
+info:
+  title: PomodoroApp API
+  description: >-
+    API RESTful de sincronización offline-first y autenticación con tokens
+    personales de acceso para PomodoroApp (Laravel 13 + SQLite).
+  version: 1.0.0
+  contact:
+    name: Equipo PomodoroApp
+    url: https://github.com/GalavizMedinaAA04/PomodoroApp
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+  - url: https://teach-chamber-donation-kodak.trycloudflare.com/api
+    description: Servidor de staging publicado mediante túnel HTTPS de Cloudflare
+tags:
+  - name: Autenticación
+    description: Registro, inicio de sesión y revocación de tokens personales (24 h)
+  - name: Sincronización
+    description: Sincronización incremental de tareas, sesiones y borrados (Last-Write-Wins)
+paths:
+  /register:
+    post:
+      tags:
+        - Autenticación
+      summary: Registrar un nuevo usuario y emitir token personal
+      operationId: registerUser
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+            example:
+              name: Lucía Estudiante
+              email: lucia@itm.mx
+              password: secreto123
+              password_confirmation: secreto123
+              device_name: flutter_app
+      responses:
+        '201':
+          description: Usuario registrado y token personal emitido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+              example:
+                token: 1|aBcDeFgHiJkLmNoPqRsTuVwXyZ0123456789abcd
+                token_type: Bearer
+                user:
+                  id: 1
+                  name: Lucía Estudiante
+                  email: lucia@itm.mx
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /login:
+    post:
+      tags:
+        - Autenticación
+      summary: Iniciar sesión y obtener un token personal con vigencia de 24 horas
+      operationId: loginUser
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+            example:
+              email: lucia@itm.mx
+              password: secreto123
+              device_name: flutter_app
+      responses:
+        '200':
+          description: Credenciales válidas y token emitido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+              example:
+                token: 2|zYxWvUtSrQpOnMlKjIhGfEdCbA9876543210zyxw
+                token_type: Bearer
+                user:
+                  id: 1
+                  name: Lucía Estudiante
+                  email: lucia@itm.mx
+        '401':
+          description: Credenciales inválidas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+              example:
+                message: Credenciales inválidas.
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /logout:
+    post:
+      tags:
+        - Autenticación
+      summary: Revocar el token personal de acceso actual
+      operationId: logoutUser
+      security:
+        - bearerAuth: []
+      responses:
+        '204':
+          description: Token revocado exitosamente (sin contenido)
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /sync:
+    post:
+      tags:
+        - Sincronización
+      summary: Sincronizar tareas, sesiones completadas y tareas eliminadas
+      operationId: syncData
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SyncRequest'
+            example:
+              tasks:
+                - id: 6f1c0000-0000-4000-8000-000000000001
+                  titulo: Estudiar cálculo
+                  prioridad: 1
+                  completada: false
+                  pomodoros_estimados: 2
+                  updated_at: '2026-10-20T15:04:05.123Z'
+              sessions:
+                - id: a93e0000-0000-4000-8000-000000000002
+                  tarea_id: 6f1c0000-0000-4000-8000-000000000001
+                  fecha_inicio: '2026-10-20T14:39:00Z'
+                  duracion_minutos: 25
+                  estado: completada
+                  updated_at: '2026-10-20T15:04:05.123Z'
+              tareas_eliminadas: []
+      responses:
+        '200':
+          description: Sincronización procesada con conteos de registros creados, actualizados y omitidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyncResponse'
+              example:
+                status: ok
+                creados: 2
+                actualizados: 0
+                omitidos: 0
+                server_time: '2026-10-20T15:04:06.000Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: PersonalAccessToken
+      description: Token personal emitido por /register o /login con formato `<id>|<token>` y expiración de 24 horas
+  responses:
+    Unauthorized:
+      description: Token ausente, inválido o expirado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+          example:
+            message: Unauthenticated.
+    ValidationError:
+      description: Error de validación de campos o conflicto de propiedad de tarea/sesión
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ValidationErrorResponse'
+          example:
+            message: Una tarea enviada pertenece a otro usuario.
+            errors:
+              tasks:
+                - Una tarea enviada pertenece a otro usuario.
+    TooManyRequests:
+      description: Límite de tasa excedido (máximo 10 intentos por minuto en /register y /login)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+          example:
+            message: Too Many Attempts.
+  schemas:
+    RegisterRequest:
+      type: object
+      required:
+        - name
+        - email
+        - password
+        - password_confirmation
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          example: Lucía Estudiante
+        email:
+          type: string
+          format: email
+          maxLength: 255
+          example: lucia@itm.mx
+        password:
+          type: string
+          format: password
+          minLength: 8
+          example: secreto123
+        password_confirmation:
+          type: string
+          format: password
+          minLength: 8
+          example: secreto123
+        device_name:
+          type: string
+          nullable: true
+          maxLength: 100
+          example: flutter_app
+    LoginRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+          example: lucia@itm.mx
+        password:
+          type: string
+          format: password
+          example: secreto123
+        device_name:
+          type: string
+          nullable: true
+          maxLength: 100
+          example: flutter_app
+    UserSummary:
+      type: object
+      required:
+        - id
+        - name
+        - email
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Lucía Estudiante
+        email:
+          type: string
+          format: email
+          example: lucia@itm.mx
+    AuthResponse:
+      type: object
+      required:
+        - token
+        - token_type
+        - user
+      properties:
+        token:
+          type: string
+          example: 1|aBcDeFgHiJkLmNoPqRsTuVwXyZ0123456789abcd
+        token_type:
+          type: string
+          enum:
+            - Bearer
+          example: Bearer
+        user:
+          $ref: '#/components/schemas/UserSummary'
+    TaskSyncItem:
+      type: object
+      required:
+        - id
+        - titulo
+        - completada
+        - pomodoros_estimados
+        - updated_at
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 6f1c0000-0000-4000-8000-000000000001
+        titulo:
+          type: string
+          minLength: 1
+          maxLength: 120
+          example: Estudiar cálculo
+        prioridad:
+          type: integer
+          nullable: true
+          minimum: 1
+          maximum: 3
+          example: 1
+        completada:
+          type: boolean
+          example: false
+        pomodoros_estimados:
+          type: integer
+          minimum: 1
+          maximum: 20
+          example: 2
+        updated_at:
+          type: string
+          format: date-time
+          example: '2026-10-20T15:04:05.123Z'
+    SessionSyncItem:
+      type: object
+      required:
+        - id
+        - tarea_id
+        - fecha_inicio
+        - duracion_minutos
+        - estado
+        - updated_at
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a93e0000-0000-4000-8000-000000000002
+        tarea_id:
+          type: string
+          format: uuid
+          example: 6f1c0000-0000-4000-8000-000000000001
+        fecha_inicio:
+          type: string
+          format: date-time
+          example: '2026-10-20T14:39:00Z'
+        duracion_minutos:
+          type: integer
+          minimum: 1
+          maximum: 120
+          example: 25
+        estado:
+          type: string
+          enum:
+            - completada
+          example: completada
+        updated_at:
+          type: string
+          format: date-time
+          example: '2026-10-20T15:04:05.123Z'
+    SyncRequest:
+      type: object
+      properties:
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskSyncItem'
+        sessions:
+          type: array
+          items:
+            $ref: '#/components/schemas/SessionSyncItem'
+        tareas_eliminadas:
+          type: array
+          items:
+            type: string
+            format: uuid
+    SyncResponse:
+      type: object
+      required:
+        - status
+        - creados
+        - actualizados
+        - omitidos
+        - server_time
+      properties:
+        status:
+          type: string
+          enum:
+            - ok
+          example: ok
+        creados:
+          type: integer
+          minimum: 0
+          example: 2
+        actualizados:
+          type: integer
+          minimum: 0
+          example: 0
+        omitidos:
+          type: integer
+          minimum: 0
+          example: 0
+        server_time:
+          type: string
+          format: date-time
+          example: '2026-10-20T15:04:06.000Z'
+    ErrorMessage:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          example: Unauthenticated.
+    ValidationErrorResponse:
+      type: object
+      required:
+        - message
+        - errors
+      properties:
+        message:
+          type: string
+          example: Una tarea enviada pertenece a otro usuario.
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
