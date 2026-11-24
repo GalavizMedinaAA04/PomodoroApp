@@ -7,11 +7,18 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
     public function register(Request $request): JsonResponse
     {
+        if (is_string($request->input('email'))) {
+            $request->merge([
+                'email' => Str::lower(trim($request->input('email'))),
+            ]);
+        }
+
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
@@ -36,6 +43,12 @@ class AuthController extends Controller
 
     public function login(Request $request): JsonResponse
     {
+        if (is_string($request->input('email'))) {
+            $request->merge([
+                'email' => Str::lower(trim($request->input('email'))),
+            ]);
+        }
+
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required', 'string'],
