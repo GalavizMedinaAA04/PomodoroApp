@@ -2,12 +2,21 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:pomodoroapp/services/estadisticas_service.dart';
 
 void main() {
-  // 2026-10-20 es martes; su semana empieza el lunes 2026-10-19.
-  final hoy = DateTime.utc(2026, 10, 20, 12);
+  // 2026-10-20 es martes en hora local; su semana empieza el lunes 2026-10-19.
+  final hoy = DateTime(2026, 10, 20, 12);
   final sesiones = <Map<String, dynamic>>[
-    {'fecha_inicio': '2026-10-20T09:00:00.000Z', 'duracion_minutos': 25},
-    {'fecha_inicio': '2026-10-20T15:00:00.000Z', 'duracion_minutos': 25},
-    {'fecha_inicio': '2026-10-13T10:00:00.000Z', 'duracion_minutos': 25},
+    {
+      'fecha_inicio': DateTime(2026, 10, 20, 9).toUtc().toIso8601String(),
+      'duracion_minutos': 25,
+    },
+    {
+      'fecha_inicio': DateTime(2026, 10, 20, 15).toUtc().toIso8601String(),
+      'duracion_minutos': 25,
+    },
+    {
+      'fecha_inicio': DateTime(2026, 10, 13, 10).toUtc().toIso8601String(),
+      'duracion_minutos': 25,
+    },
   ];
 
   test('por día: 14 barras y la última es hoy con 50 min', () {
