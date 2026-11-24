@@ -1,0 +1,229 @@
+=== Tarea P18: Medición de rendimiento en Android (CP-NF-01 y CP-NF-02) ===
+Fecha: 2026-11-24 09:49:39 -06:00
+
+--- 1. Dispositivo conectado (adb devices y getprop) ---
+List of devices attached
+wwxwh6qctoo7buqk	device
+
+ro.product.model: 2312FPCA6G
+ro.product.marketname: POCO M6 Pro
+ro.build.version.release: 15
+
+--- 2. Instalación de pomodoro-1.0.1.apk ---
+Comando: adb install -r C:\Users\prici\Desktop\pomodoro-1.0.1.apk
+Performing Streamed Install
+Success
+
+--- 3. CP-NF-02: Arranque en frío (10 repeticiones) ---
+Iteración 1:
+Starting: Intent { cmp=com.example.pomodoroapp/.MainActivity }
+Status: ok
+LaunchState: COLD
+Activity: com.example.pomodoroapp/.MainActivity
+TotalTime: 1520
+WaitTime: 1531
+Complete
+
+Iteración 2:
+Starting: Intent { cmp=com.example.pomodoroapp/.MainActivity }
+Status: ok
+LaunchState: COLD
+Activity: com.example.pomodoroapp/.MainActivity
+TotalTime: 1422
+WaitTime: 1425
+Complete
+
+Iteración 3:
+Starting: Intent { cmp=com.example.pomodoroapp/.MainActivity }
+Status: ok
+LaunchState: COLD
+Activity: com.example.pomodoroapp/.MainActivity
+TotalTime: 1244
+WaitTime: 1247
+Complete
+
+Iteración 4:
+Starting: Intent { cmp=com.example.pomodoroapp/.MainActivity }
+Status: ok
+LaunchState: COLD
+Activity: com.example.pomodoroapp/.MainActivity
+TotalTime: 1284
+WaitTime: 1292
+Complete
+
+Iteración 5:
+Starting: Intent { cmp=com.example.pomodoroapp/.MainActivity }
+Status: ok
+LaunchState: COLD
+Activity: com.example.pomodoroapp/.MainActivity
+TotalTime: 1262
+WaitTime: 1266
+Complete
+
+Iteración 6:
+Starting: Intent { cmp=com.example.pomodoroapp/.MainActivity }
+Status: ok
+LaunchState: COLD
+Activity: com.example.pomodoroapp/.MainActivity
+TotalTime: 1008
+WaitTime: 1033
+Complete
+
+Iteración 7:
+Starting: Intent { cmp=com.example.pomodoroapp/.MainActivity }
+Status: ok
+LaunchState: COLD
+Activity: com.example.pomodoroapp/.MainActivity
+TotalTime: 754
+WaitTime: 773
+Complete
+
+Iteración 8:
+Starting: Intent { cmp=com.example.pomodoroapp/.MainActivity }
+Status: ok
+LaunchState: COLD
+Activity: com.example.pomodoroapp/.MainActivity
+TotalTime: 1278
+WaitTime: 1307
+Complete
+
+Iteración 9:
+Starting: Intent { cmp=com.example.pomodoroapp/.MainActivity }
+Status: ok
+LaunchState: COLD
+Activity: com.example.pomodoroapp/.MainActivity
+TotalTime: 990
+WaitTime: 1028
+Complete
+
+Iteración 10:
+Starting: Intent { cmp=com.example.pomodoroapp/.MainActivity }
+Status: ok
+LaunchState: COLD
+Activity: com.example.pomodoroapp/.MainActivity
+TotalTime: 1259
+WaitTime: 1264
+Complete
+
+Resumen CP-NF-02 (TotalTime en ms): 1520, 1422, 1244, 1284, 1262, 1008, 754, 1278, 990, 1259
+Promedio: 1202.1 ms | Mínimo: 754 ms | Máximo: 1520 ms | Meta: <= 3000 ms
+
+--- 4. CP-NF-01: Reinicio de contadores (dumpsys gfxinfo reset) ---
+Applications Graphics Acceleration Info:
+Uptime: 86712471 Realtime: 144285541
+
+** Graphics info for pid 15869 [com.example.pomodoroapp] **
+
+Stats since: 86709813486936ns
+Total frames rendered: 1
+Janky frames: 0 (0.00%)
+Janky frames (legacy): 1 (100.00%)
+50th percentile: 11ms
+90th percentile: 11ms
+95th percentile: 11ms
+99th percentile: 11ms
+Number Missed Vsync: 0
+Number High input latency: 1
+Number Slow UI thread: 0
+Number Slow bitmap uploads: 0
+Number Slow issue draw commands: 0
+Number Frame deadline missed: 0
+Number Frame deadline missed (legacy): 0
+HISTOGRAM: 5ms=0 6ms=0 7ms=0 8ms=0 9ms=0 10ms=0 11ms=1 12ms=0 13ms=0 14ms=0 15ms=0 16ms=0 17ms=0 18ms=0 19ms=0 20ms=0 21ms=0 22ms=0 23ms=0 24ms=0 25ms=0 26ms=0 27ms=0 28ms=0 29ms=0 30ms=0 31ms=0 32ms=0 34ms=0 36ms=0 38ms=0 40ms=0 42ms=0 44ms=0 46ms=0 48ms=0 53ms=0 57ms=0 61ms=0 65ms=0 69ms=0 73ms=0 77ms=0 81ms=0 85ms=0 89ms=0 93ms=0 97ms=0 101ms=0 105ms=0 109ms=0 113ms=0 117ms=0 121ms=0 125ms=0 129ms=0 133ms=0 150ms=0 200ms=0 250ms=0 300ms=0 350ms=0 400ms=0 450ms=0 500ms=0 550ms=0 600ms=0 650ms=0 700ms=0 750ms=0 800ms=0 850ms=0 900ms=0 950ms=0 1000ms=0 1050ms=0 1100ms=0 1150ms=0 1200ms=0 1250ms=0 1300ms=0 1350ms=0 1400ms=0 1450ms=0 1500ms=0 1550ms=0 1600ms=0 1650ms=0 1700ms=0 1750ms=0 1800ms=0 1850ms=0 1900ms=0 1950ms=0 2000ms=0 2050ms=0 2100ms=0 2150ms=0 2200ms=0 2250ms=0 2300ms=0 2350ms=0 2400ms=0 2450ms=0 2500ms=0 2550ms=0 2600ms=0 2650ms=0 2700ms=0 2750ms=0 2800ms=0 2850ms=0 2900ms=0 2950ms=0 3000ms=0 3050ms=0 3100ms=0 3150ms=0 3200ms=0 3250ms=0 3300ms=0 3350ms=0 3400ms=0 3450ms=0 3500ms=0 3550ms=0 3600ms=0 3650ms=0 3700ms=0 3750ms=0 3800ms=0 3850ms=0 3900ms=0 3950ms=0 4000ms=0 4050ms=0 4100ms=0 4150ms=0 4200ms=0 4250ms=0 4300ms=0 4350ms=0 4400ms=0 4450ms=0 4500ms=0 4550ms=0 4600ms=0 4650ms=0 4700ms=0 4750ms=0 4800ms=0 4850ms=0 4900ms=0 4950ms=0
+50th gpu percentile: 3ms
+90th gpu percentile: 3ms
+95th gpu percentile: 3ms
+99th gpu percentile: 3ms
+
+--- 5. CP-NF-01: Salida de adb shell dumpsys gfxinfo com.example.pomodoroapp ---
+Applications Graphics Acceleration Info:
+Uptime: 87123731 Realtime: 144696801
+
+** Graphics info for pid 15869 [com.example.pomodoroapp] **
+
+Stats since: 86712477711321ns
+Total frames rendered: 0
+Janky frames: 0 (0.00%)
+Janky frames (legacy): 0 (0.00%)
+50th percentile: 4950ms
+90th percentile: 4950ms
+95th percentile: 4950ms
+99th percentile: 4950ms
+Number Missed Vsync: 0
+Number High input latency: 0
+Number Slow UI thread: 0
+Number Slow bitmap uploads: 0
+Number Slow issue draw commands: 0
+Number Frame deadline missed: 0
+Number Frame deadline missed (legacy): 0
+HISTOGRAM: 5ms=0 6ms=0 7ms=0 8ms=0 9ms=0 10ms=0 11ms=0 12ms=0 13ms=0 14ms=0 15ms=0 16ms=0 17ms=0 18ms=0 19ms=0 20ms=0 21ms=0 22ms=0 23ms=0 24ms=0 25ms=0 26ms=0 27ms=0 28ms=0 29ms=0 30ms=0 31ms=0 32ms=0 34ms=0 36ms=0 38ms=0 40ms=0 42ms=0 44ms=0 46ms=0 48ms=0 53ms=0 57ms=0 61ms=0 65ms=0 69ms=0 73ms=0 77ms=0 81ms=0 85ms=0 89ms=0 93ms=0 97ms=0 101ms=0 105ms=0 109ms=0 113ms=0 117ms=0 121ms=0 125ms=0 129ms=0 133ms=0 150ms=0 200ms=0 250ms=0 300ms=0 350ms=0 400ms=0 450ms=0 500ms=0 550ms=0 600ms=0 650ms=0 700ms=0 750ms=0 800ms=0 850ms=0 900ms=0 950ms=0 1000ms=0 1050ms=0 1100ms=0 1150ms=0 1200ms=0 1250ms=0 1300ms=0 1350ms=0 1400ms=0 1450ms=0 1500ms=0 1550ms=0 1600ms=0 1650ms=0 1700ms=0 1750ms=0 1800ms=0 1850ms=0 1900ms=0 1950ms=0 2000ms=0 2050ms=0 2100ms=0 2150ms=0 2200ms=0 2250ms=0 2300ms=0 2350ms=0 2400ms=0 2450ms=0 2500ms=0 2550ms=0 2600ms=0 2650ms=0 2700ms=0 2750ms=0 2800ms=0 2850ms=0 2900ms=0 2950ms=0 3000ms=0 3050ms=0 3100ms=0 3150ms=0 3200ms=0 3250ms=0 3300ms=0 3350ms=0 3400ms=0 3450ms=0 3500ms=0 3550ms=0 3600ms=0 3650ms=0 3700ms=0 3750ms=0 3800ms=0 3850ms=0 3900ms=0 3950ms=0 4000ms=0 4050ms=0 4100ms=0 4150ms=0 4200ms=0 4250ms=0 4300ms=0 4350ms=0 4400ms=0 4450ms=0 4500ms=0 4550ms=0 4600ms=0 4650ms=0 4700ms=0 4750ms=0 4800ms=0 4850ms=0 4900ms=0 4950ms=0
+50th gpu percentile: 4950ms
+90th gpu percentile: 4950ms
+95th gpu percentile: 4950ms
+99th gpu percentile: 4950ms
+GPU HISTOGRAM: 1ms=0 2ms=0 3ms=0 4ms=0 5ms=0 6ms=0 7ms=0 8ms=0 9ms=0 10ms=0 11ms=0 12ms=0 13ms=0 14ms=0 15ms=0 16ms=0 17ms=0 18ms=0 19ms=0 20ms=0 21ms=0 22ms=0 23ms=0 24ms=0 25ms=0 4950ms=0
+
+Pipeline=Skia (OpenGL)
+Memory policy:
+  Max surface area: 2592000
+  Max resource usage: 373.25MB (x144)
+  Background retention: 50% (altUiHidden = true)
+  GPU Context timeout: 10
+Contexts: 1 (stopped = 0)
+CPU Caches:
+  Glyph Cache: 0.00 bytes (1 entry)
+  Glyph Count: 0 
+Total CPU memory usage:
+  0 bytes, 0.00 bytes (0.00 bytes is purgeable)
+
+GPU Caches:
+  Other:
+    Other: 0.00 bytes (1 entry)
+Total GPU memory usage:
+  0 bytes, 0.00 bytes (0.00 bytes is purgeable)
+
+GraphicBufferAllocator buffers:
+        Handle |        Size |     W (Stride) x H | Layers |   Format |      Usage | Requestor
+0xb4000070ec44d3d0 | 10200.00 KiB | 1080 (1088) x 2400 |      1 |        1 | 0x40000000000b00 | VRI[MainActivity]#0(BLAST Consumer)0
+0xb4000070ec458ab0 | 10200.00 KiB | 1080 (1088) x 2400 |      1 |        1 | 0x     b00 | SurfaceView[com.example.pomodoroapp/com.example.pomodoroapp.MainActivity]#1(BLAST Consumer)1
+0xb4000070ec458d70 | 10200.00 KiB | 1080 (1088) x 2400 |      1 |        1 | 0x     b00 | SurfaceView[com.example.pomodoroapp/com.example.pomodoroapp.MainActivity]#1(BLAST Consumer)1
+0xb4000070ec4599d0 | 10200.00 KiB | 1080 (1088) x 2400 |      1 |        1 | 0x     b00 | SurfaceView[com.example.pomodoroapp/com.example.pomodoroapp.MainActivity]#1(BLAST Consumer)1
+0xb4000070ec459f50 | 10200.00 KiB | 1080 (1088) x 2400 |      1 |        1 | 0x     b00 | SurfaceView[com.example.pomodoroapp/com.example.pomodoroapp.MainActivity]#1(BLAST Consumer)1
+0xb4000070ec45abb0 | 10200.00 KiB | 1080 (1088) x 2400 |      1 |        1 | 0x     b00 | SurfaceView[com.example.pomodoroapp/com.example.pomodoroapp.MainActivity]#1(BLAST Consumer)1
+0xb4000070ec45b810 | 10200.00 KiB | 1080 (1088) x 2400 |      1 |        1 | 0x     b00 | SurfaceView[com.example.pomodoroapp/com.example.pomodoroapp.MainActivity]#1(BLAST Consumer)1
+0xb4000070ec45b970 | 10200.00 KiB | 1080 (1088) x 2400 |      1 |        1 | 0x     b00 | SurfaceView[com.example.pomodoroapp/com.example.pomodoroapp.MainActivity]#1(BLAST Consumer)1
+0xb4000070ec460eb0 | 10200.00 KiB | 1080 (1088) x 2400 |      1 |        1 | 0x     b00 | SurfaceView[com.example.pomodoroapp/com.example.pomodoroapp.MainActivity]#1(BLAST Consumer)1
+Total allocated by GraphicBufferAllocator (estimate): 91800.00 KB
+Imported gralloc buffers:
++ name:VRI[MainActivity]#0(BLAST Consumer)0, id:4024384430302, size:10360.00KiB, w/h:1080x2400, usage: 0x40000000000b00, req fmt:1, fourcc/mod:875708993/576460752303423602, dataspace: 0x8810000, compressed: true
+	planes: R/G/B/A:	 w/h:1088x2400, stride:4352 bytes, size:10608640
++ name:SurfaceView[com.example.pomodoroapp/com.example.pomodoroapp.MainActivity]#1(BLAST Consumer)1, id:4024384430300, size:10360.00KiB, w/h:1080x2400, usage: 0xb00, req fmt:1, fourcc/mod:875708993/576460752303423602, dataspace: 0x8810000, compressed: true
+	planes: R/G/B/A:	 w/h:1088x2400, stride:4352 bytes, size:10608640
++ name:SurfaceView[com.example.pomodoroapp/com.example.pomodoroapp.MainActivity]#1(BLAST Consumer)1, id:4024384430301, size:10360.00KiB, w/h:1080x2400, usage: 0xb00, req fmt:1, fourcc/mod:875708993/576460752303423602, dataspace: 0x8810000, compressed: true
+	planes: R/G/B/A:	 w/h:1088x2400, stride:4352 bytes, size:10608640
++ name:SurfaceView[com.example.pomodoroapp/com.example.pomodoroapp.MainActivity]#1(BLAST Consumer)1, id:4024384430299, size:10360.00KiB, w/h:1080x2400, usage: 0xb00, req fmt:1, fourcc/mod:875708993/576460752303423602, dataspace: 0x8810000, compressed: true
+	planes: R/G/B/A:	 w/h:1088x2400, stride:4352 bytes, size:10608640
++ name:SurfaceView[com.example.pomodoroapp/com.example.pomodoroapp.MainActivity]#1(BLAST Consumer)1, id:4024384430298, size:10360.00KiB, w/h:1080x2400, usage: 0xb00, req fmt:1, fourcc/mod:875708993/576460752303423602, dataspace: 0x8810000, compressed: true
+	planes: R/G/B/A:	 w/h:1088x2400, stride:4352 bytes, size:10608640
++ name:SurfaceView[com.example.pomodoroapp/com.example.pomodoroapp.MainActivity]#1(BLAST Consumer)1, id:4024384430297, size:10360.00KiB, w/h:1080x2400, usage: 0xb00, req fmt:1, fourcc/mod:875708993/576460752303423602, dataspace: 0x8810000, compressed: true
+	planes: R/G/B/A:	 w/h:1088x2400, stride:4352 bytes, size:10608640
++ name:SurfaceView[com.example.pomodoroapp/com.example.pomodoroapp.MainActivity]#1(BLAST Consumer)1, id:4024384430295, size:10360.00KiB, w/h:1080x2400, usage: 0xb00, req fmt:1, fourcc/mod:875708993/576460752303423602, dataspace: 0x8810000, compressed: true
+	planes: R/G/B/A:	 w/h:1088x2400, stride:4352 bytes, size:10608640
++ name:SurfaceView[com.example.pomodoroapp/com.example.pomodoroapp.MainActivity]#1(BLAST Consumer)1, id:4024384430296, size:10360.00KiB, w/h:1080x2400, usage: 0xb00, req fmt:1, fourcc/mod:875708993/576460752303423602, dataspace: 0x8810000, compressed: true
+	planes: R/G/B/A:	 w/h:1088x2400, stride:4352 bytes, size:10608640
++ name:SurfaceView[com.example.pomodoroapp/com.example.pomodoroapp.MainActivity]#1(BLAST Consumer)1, id:4024384430294, size:10360.00KiB, w/h:1080x2400, usage: 0xb00, req fmt:1, fourcc/mod:875708993/576460752303423602, dataspace: 0x8810000, compressed: true
+	planes: R/G/B/A:	 w/h:1088x2400, stride:4352 bytes, size:10608640
+Total imported by gralloc: 93240.00KiB
+
+Profile data in ms:
+
+	com.example.pomodoroapp/com.example.pomodoroapp.MainActivity/android.view.ViewRootImpl@a50b153 (visibility=0)
+View hierarchy:
+
+  com.example.pomodoroapp/com.example.pomodoroapp.MainActivity/android.view.ViewRootImpl@a50b153
+  7 views, 14.60 kB of render nodes
+
+
+Total ViewRootImpl   : 1
+Total attached Views : 7
+Total RenderNode     : 14.60 kB (used) / 46.34 kB (capacity)
