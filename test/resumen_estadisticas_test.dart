@@ -2,21 +2,21 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:pomodoroapp/services/estadisticas_service.dart';
 
 void main() {
-  // 2026-10-20 (martes) y el día anterior, 2026-10-19 (lunes).
-  final hoy = DateTime.utc(2026, 10, 20, 12);
+  // 2026-10-20 (martes) y el día anterior, 2026-10-19 (lunes), en hora local.
+  final hoy = DateTime(2026, 10, 20, 12);
   final sesiones = <Map<String, dynamic>>[
     {
-      'fecha_inicio': '2026-10-20T09:00:00.000Z',
+      'fecha_inicio': DateTime(2026, 10, 20, 9).toUtc().toIso8601String(),
       'duracion_minutos': 25,
       'tarea_titulo': 'Cálculo',
     },
     {
-      'fecha_inicio': '2026-10-19T09:00:00.000Z',
+      'fecha_inicio': DateTime(2026, 10, 19, 9).toUtc().toIso8601String(),
       'duracion_minutos': 25,
       'tarea_titulo': 'Cálculo',
     },
     {
-      'fecha_inicio': '2026-10-19T15:00:00.000Z',
+      'fecha_inicio': DateTime(2026, 10, 19, 15).toUtc().toIso8601String(),
       'duracion_minutos': 50,
       'tarea_titulo': null,
     },
@@ -50,4 +50,119 @@ void main() {
     expect(resumen.rachaDias, 0);
     expect(resumen.minutosTotales, 0);
   });
+
+  test('CP-CB-06 desglosePorAnioMesDia organiza año, nombre de mes y días de una tarea', () {
+    // Preparar
+    final resumen = EstadisticasService.resumir(sesiones, hoy: hoy);
+
+    // Ejecutar
+    final desglose = EstadisticasService.desglosePorAnioMesDia(
+      resumen,
+      'Cálculo',
+    );
+
+    // Verificar
+    expect(desglose.keys, ['2026']);
+    expect(desglose['2026']!.keys, ['Octubre']);
+    expect(desglose['2026']!['Octubre'], [
+      {'dia': '20', 'minutos': 25},
+      {'dia': '19', 'minutos': 25},
+    ]);
+  });
+
+  test(
+    'CP-TD-30 sesión a las 20:14 hora local del 21/11 cuenta como de hoy, aparece en la bitácora del 21 y en la barra 21/11',
+    () {
+      // Preparar
+      final hoyLocal = DateTime(2026, 11, 21, 23, 0);
+      final sesionNocturna = <Map<String, dynamic>>[
+        {
+          'fecha_inicio':
+              DateTime(2026, 11, 21, 20, 14).toUtc().toIso8601String(),
+          'duracion_minutos': 25,
+          'tarea_titulo': 'Piloto',
+        },
+      ];
+
+      // Ejecutar
+      final resumen = EstadisticasService.resumir(
+        sesionNocturna,
+        hoy: hoyLocal,
+      );
+      final barras = EstadisticasService.agrupar(
+        sesionNocturna,
+        PeriodoGrafica.dia,
+        hoy: hoyLocal,
+      );
+
+      // Verificar
+      expect(resumen.sesionesHoy, 1);
+      expect(resumen.historialPorDia['2026-11-21']?.length, 1);
+      expect(resumen.historialPorDia['2026-11-22'], isNull);
+      expect(barras.last.etiqueta, '21/11');
+      expect(barras.last.minutos, 25);
+    },
+  );
+
+  test(
+    'CP-TD-31 sesión a las 00:30 local del 22/11 cuenta para el 22 y no para el 21',
+    () {
+      // Preparar
+      final hoyLocal = DateTime(2026, 11, 22, 10, 0);
+      final sesionMadrugada = <Map<String, dynamic>>[
+        {
+          'fecha_inicio':
+              DateTime(2026, 11, 22, 0, 30).toUtc().toIso8601String(),
+          'duracion_minutos': 25,
+          'tarea_titulo': 'Piloto',
+        },
+      ];
+
+      // Ejecutar
+      final resumen = EstadisticasService.resumir(
+        sesionMadrugada,
+        hoy: hoyLocal,
+      );
+
+      // Verificar
+      expect(resumen.sesionesHoy, 1);
+      expect(resumen.historialPorDia['2026-11-22']?.length, 1);
+      expect(resumen.historialPorDia['2026-11-21'], isNull);
+    },
+  );
+
+  test(
+    'CP-TD-32 la racha cuenta dos días seguidos aunque las sesiones crucen la medianoche UTC',
+    () {
+      // Preparar
+      final hoyLocal = DateTime(2026, 11, 22, 21, 0);
+      final sesionesDosNoches = <Map<String, dynamic>>[
+        {
+          'fecha_inicio':
+              DateTime(2026, 11, 22, 20, 30).toUtc().toIso8601String(),
+          'duracion_minutos': 25,
+          'tarea_titulo': 'Piloto',
+        },
+        {
+          'fecha_inicio':
+              DateTime(2026, 11, 21, 20, 14).toUtc().toIso8601String(),
+          'duracion_minutos': 25,
+          'tarea_titulo': 'Piloto',
+        },
+      ];
+
+      // Ejecutar
+      final resumen = EstadisticasService.resumir(
+        sesionesDosNoches,
+        hoy: hoyLocal,
+      );
+
+      // Verificar
+      expect(resumen.rachaDias, 2);
+      expect(
+        resumen.historialPorDia.keys,
+        containsAll(['2026-11-21', '2026-11-22']),
+      );
+    },
+  );
 }

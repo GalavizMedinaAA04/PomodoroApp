@@ -1,0 +1,25 @@
+=== Resumen de cobertura Flutter (coverage/lcov.info) ===
+Nota: en Windows no está instalado el binario Unix `lcov`, por lo que los conteos LF (líneas instrumentadas) y LH (líneas ejecutadas) se extrajeron directamente de los registros SF/DA/LF/LH de `coverage/lcov.info` generado por `flutter test --coverage` (60 pruebas aprobadas, 0 fallidas).
+
+1. Resumen general (equivalente a `lcov --summary coverage/lcov.info`)
+  lines......: 91.6% (564 of 616 lines)
+
+2. Resumen de `lib/services/` (equivalente a `lcov --extract coverage/lcov.info "*/lib/services/*"`)
+  lines......: 99.2% (249 of 251 lines)
+  - lib/services/ciclo_pomodoro.dart        : 80 / 80  (100.0%)
+  - lib/services/estadisticas_service.dart  : 79 / 80  (98.8%)
+  - lib/services/sync_service.dart          : 90 / 91  (98.9%)
+
+3. Resumen de `lib/data/` (equivalente a `lcov --extract coverage/lcov.info "*/lib/data/*"`)
+  lines......: 96.4% (132 of 137 lines)
+  - lib/data/database_helper.dart           : 127 / 132 (96.2%)
+  - lib/data/sqlite_init_io.dart            :   5 /   5 (100.0%)
+
+4. Otros archivos instrumentados en `coverage/lcov.info`
+  - lib/screens/settings_screen.dart        : 92 / 104 (88.5%)
+  - lib/screens/tasks_screen.dart           : 91 / 124 (73.4%)
+
+5. Comparativa antes y después de las pruebas de caja blanca (CP-CB-03 a CP-CB-08)
+  - Total Flutter : 461 / 616 (74.8%) -> 564 / 616 (91.6%)
+  - lib/services/ : 200 / 251 (79.7%) -> 249 / 251 (99.2%)
+  - lib/data/     :  78 / 137 (56.9%) -> 132 / 137 (96.4%)

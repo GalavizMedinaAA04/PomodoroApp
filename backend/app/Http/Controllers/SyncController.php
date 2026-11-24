@@ -70,7 +70,7 @@ class SyncController extends Controller
         $created = $updated = $skipped = 0;
 
         foreach ($records as $record) {
-            $incomingAt = Carbon::parse($record['updated_at'])->utc();
+            $incomingAt = Carbon::parse($record['updated_at'])->utc()->startOfSecond();
             $existing = Task::whereKey($record['id'])->lockForUpdate()->first();
 
             if ($existing) {
@@ -126,7 +126,7 @@ class SyncController extends Controller
         $created = $updated = $skipped = 0;
 
         foreach ($records as $record) {
-            $incomingAt = Carbon::parse($record['updated_at'])->utc();
+            $incomingAt = Carbon::parse($record['updated_at'])->utc()->startOfSecond();
             $existing = PomodoroSession::with('task')
                 ->whereKey($record['id'])
                 ->lockForUpdate()

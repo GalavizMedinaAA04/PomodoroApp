@@ -42,7 +42,7 @@ class SyncService {
   static const String claveToken = 'api_auth_token';
   static const String claveUrlApi = 'api_base_url';
   static const String claveCorreo = 'api_user_email';
-  static const String urlPorDefecto = 'https://127.0.0.1:8000';
+  static const String urlPorDefecto = 'https://antique-transparent-button-immediately.trycloudflare.com';
 
   final http.Client _client;
   final Future<Map<String, dynamic>> Function() _exportarDatos;

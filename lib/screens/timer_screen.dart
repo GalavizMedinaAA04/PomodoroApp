@@ -297,33 +297,43 @@ class _TimerScreenState extends State<TimerScreen> with WidgetsBindingObserver {
           appBar: AppBar(
             title: const Text('Pomodoro'),
             centerTitle: true,
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.checklist),
-                tooltip: 'Tareas',
-                onPressed: _abrirTareas,
-              ),
-              IconButton(
-                icon: const Icon(Icons.bar_chart),
-                tooltip: 'Estadísticas',
-                onPressed: () => _abrir(const StatsScreen()),
-              ),
-              IconButton(
-                icon: const Icon(Icons.show_chart),
-                tooltip: 'Gráficas',
-                onPressed: () => _abrir(const GraficasScreen()),
-              ),
-              IconButton(
-                icon: const Icon(Icons.settings),
-                tooltip: 'Configuración',
-                onPressed: _abrirConfiguracion,
-              ),
-              IconButton(
-                icon: const Icon(Icons.cloud_upload_outlined),
-                tooltip: 'Sincronización',
-                onPressed: () => _abrir(const SyncScreen()),
-              ),
-            ],
+          ),
+          bottomNavigationBar: BottomAppBar(
+            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+            child: Row(
+              children: [
+                _AccesoBarraInferior(
+                  icon: Icons.checklist,
+                  label: 'Tareas',
+                  tooltip: 'Tareas',
+                  onPressed: _abrirTareas,
+                ),
+                _AccesoBarraInferior(
+                  icon: Icons.insights,
+                  label: 'Estadísticas',
+                  tooltip: 'Estadísticas',
+                  onPressed: () => _abrir(const StatsScreen()),
+                ),
+                _AccesoBarraInferior(
+                  icon: Icons.bar_chart,
+                  label: 'Gráficas',
+                  tooltip: 'Gráficas',
+                  onPressed: () => _abrir(const GraficasScreen()),
+                ),
+                _AccesoBarraInferior(
+                  icon: Icons.settings,
+                  label: 'Configuración',
+                  tooltip: 'Configuración',
+                  onPressed: _abrirConfiguracion,
+                ),
+                _AccesoBarraInferior(
+                  icon: Icons.cloud_upload_outlined,
+                  label: 'Sincronizar',
+                  tooltip: 'Sincronización',
+                  onPressed: () => _abrir(const SyncScreen()),
+                ),
+              ],
+            ),
           ),
           body: SafeArea(
             child: Padding(
@@ -414,6 +424,52 @@ class _TimerScreenState extends State<TimerScreen> with WidgetsBindingObserver {
                   ),
                 ],
               ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _AccesoBarraInferior extends StatelessWidget {
+  const _AccesoBarraInferior({
+    required this.icon,
+    required this.label,
+    required this.tooltip,
+    required this.onPressed,
+  });
+
+  final IconData icon;
+  final String label;
+  final String tooltip;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Tooltip(
+        message: tooltip,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(8),
+          onTap: onPressed,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 4),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(icon, size: 22),
+                const SizedBox(height: 2),
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    label,
+                    maxLines: 1,
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
+                ),
+              ],
             ),
           ),
         ),

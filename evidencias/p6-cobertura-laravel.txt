@@ -1,0 +1,53 @@
+
+   PASS  Tests\Unit\ExampleTest
+  ✓ that true is true                                                                                            0.04s  
+
+   PASS  Tests\Feature\AutenticacionLimitesTest
+  ✓ cp vl 10 once intentos de login con contrasena incorrecta en un minuto                                       1.05s  
+  ✓ cp vl 11 token creado hace 23 h permite sincronizar                                                          0.13s  
+  ✓ cp vl 12 token creado hace 25 h es rechazado                                                                 0.09s  
+  ✓ cp ce 10 post api sync sin token devuelve 401                                                                0.08s  
+  ✓ cp ce 11 registro con correo ya existente devuelve 422                                                       0.11s  
+
+   PASS  Tests\Feature\AuthTest
+  ✓ usuario puede registrarse y recibir token                                                                    0.11s  
+  ✓ login rechaza credenciales invalidas                                                                         0.09s  
+  ✓ logout revoca el token personal                                                                              0.11s  
+
+   PASS  Tests\Feature\SyncReglasTest
+  ✓ cp vl 20 a 27 valores limite de tarea with data set " c p- v l-20 tarea con título de 120 caracteres"        0.12s  
+  ✓ cp vl 20 a 27 valores limite de tarea with data set " c p- v l-21 título de 121 caracteres"                  0.10s  
+  ✓ cp vl 20 a 27 valores limite de tarea with data set " c p- v l-22 pomodoros estimados 0"                     0.10s  
+  ✓ cp vl 20 a 27 valores limite de tarea with data set " c p- v l-23 pomodoros estimados 1"                     0.11s  
+  ✓ cp vl 20 a 27 valores limite de tarea with data set " c p- v l-24 pomodoros estimados 20"                    0.11s  
+  ✓ cp vl 20 a 27 valores limite de tarea with data set " c p- v l-25 pomodoros estimados 21"                    0.10s  
+  ✓ cp vl 20 a 27 valores limite de tarea with data set " c p- v l-26 prioridad 0"                               0.10s  
+  ✓ cp vl 20 a 27 valores limite de tarea with data set " c p- v l-27 prioridad 4"                               0.12s  
+  ✓ cp vl 28 a 31 valores limite de sesion with data set " c p- v l-28 sesión de 0 minutos"                      0.10s  
+  ✓ cp vl 28 a 31 valores limite de sesion with data set " c p- v l-29 sesión de 1 minuto"                       0.11s  
+  ✓ cp vl 28 a 31 valores limite de sesion with data set " c p- v l-30 sesión de 120 minutos"                    0.11s  
+  ✓ cp vl 28 a 31 valores limite de sesion with data set " c p- v l-31 sesión de 121 minutos"                    0.12s  
+  ✓ cp td 20 version con updated at anterior se omite                                                            0.11s  
+  ✓ cp td 21 version con la misma updated at se omite                                                            0.10s  
+  ✓ cp td 22 version con updated at posterior actualiza la tarea                                                 0.11s  
+  ✓ cp td 23 otro usuario envia la misma tarea con fecha posterior y recibe 422                                  0.11s  
+  ✓ cp cb 10 tarea nueva sin prioridad se guarda con prioridad 2                                                 0.10s  
+  ✓ cp cu 07 eliminar tarea propia borra la tarea y su sesion                                                    0.11s  
+
+   PASS  Tests\Feature\SyncTest
+  ✓ sincroniza tareas sesiones y borrados con last write wins                                                    0.17s  
+  ✓ rechaza con 422 sesion que apunta a tarea ajena                                                              0.11s  
+
+  Tests:    29 passed (65 assertions)
+  Duration: 4.93s
+
+  Http/Controllers\AuthController ................................................................. 51..56, 57 / 81.8%  
+  Http/Controllers\Controller ................................................................................. 100.0%  
+  Http/Controllers\SyncController .............................................................. 136..143, 139 / 93.2%  
+  Models\PersonalAccessToken .......................................................................... 37, 47 / 84.6%  
+  Models\PomodoroSession .................................................................................. 33 / 83.3%  
+  Models\Task ......................................................................................... 39..44 / 75.0%  
+  Models\User ................................................................................................. 100.0%  
+  Providers\AppServiceProvider ............................................................................ 37 / 93.8%  
+  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────  
+                                                                                                         Total: 90.4 %  

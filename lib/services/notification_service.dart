@@ -65,6 +65,12 @@ class NotificationService {
     await cancelar();
     if (segundos <= 0) return;
 
+    final puedeExacta = await _plugin
+            .resolvePlatformSpecificImplementation<
+                AndroidFlutterLocalNotificationsPlugin>()
+            ?.canScheduleExactNotifications() ??
+        false;
+
     await _plugin.zonedSchedule(
       id: _idFinFase,
       title: titulo,
@@ -78,6 +84,8 @@ class NotificationService {
           channelDescription: 'Avisa cuando termina el trabajo o descanso',
           importance: Importance.max,
           priority: Priority.high,
+          playSound: true,
+          enableVibration: true,
         ),
         iOS: DarwinNotificationDetails(),
         windows: WindowsNotificationDetails(
@@ -86,10 +94,11 @@ class NotificationService {
           ),
         ),
       ),
-      // Inexacta pero sin permiso SCHEDULE_EXACT_ALARM; en modo Doze puede
-      // retrasarse algunos segundos. Cambiar a exactAllowWhileIdle si se
-      // agrega dicho permiso.
-      androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+      // Alarma exacta incluso en modo Doze cuando el sistema lo permite;
+      // inexactAllowWhileIdle queda como respaldo si el permiso no está activo.
+      androidScheduleMode: puedeExacta
+          ? AndroidScheduleMode.exactAllowWhileIdle
+          : AndroidScheduleMode.inexactAllowWhileIdle,
     );
   }
 
