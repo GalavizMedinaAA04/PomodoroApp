@@ -15,7 +15,7 @@ class _StatsScreenState extends State<StatsScreen> {
   bool _cargando = true;
   ResumenEstadisticas? _resumen;
 
-  DateTime _fechaSeleccionada = DateTime.now().toUtc();
+  DateTime _fechaSeleccionada = DateTime.now();
 
   /// Si es false, solo se muestra el Top 5 de tareas.
   bool _verTodasTareas = false;
@@ -123,16 +123,23 @@ class _StatsScreenState extends State<StatsScreen> {
     if (seleccion != null) {
       setState(() {
         _fechaSeleccionada =
-            DateTime.utc(seleccion.year, seleccion.month, seleccion.day);
+            DateTime(seleccion.year, seleccion.month, seleccion.day);
       });
     }
+  }
+
+  String _claveFechaLocal(DateTime fecha) {
+    final local = fecha.toLocal();
+    final m = local.month.toString().padLeft(2, '0');
+    final d = local.day.toString().padLeft(2, '0');
+    return '${local.year.toString().padLeft(4, '0')}-$m-$d';
   }
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final resumen = _resumen;
-    final fechaStr = _fechaSeleccionada.toIso8601String().substring(0, 10);
+    final fechaStr = _claveFechaLocal(_fechaSeleccionada);
     final sesionesDelDia = resumen?.historialPorDia[fechaStr] ?? [];
     final minsDelDia = sesionesDelDia.fold<int>(
       0,

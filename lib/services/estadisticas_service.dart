@@ -9,7 +9,7 @@ class BarraGrafica {
   final int minutos;
 }
 
-/// Agrupa las sesiones completadas por día, semana o mes, en UTC.
+/// Agrupa las sesiones completadas por día, semana o mes, en hora local.
 class EstadisticasService {
   EstadisticasService._();
 
@@ -33,11 +33,11 @@ class EstadisticasService {
     PeriodoGrafica periodo, {
     DateTime? hoy,
   }) {
-    final inicios = _inicios(periodo, hoy ?? DateTime.now().toUtc());
+    final inicios = _inicios(periodo, (hoy ?? DateTime.now()).toLocal());
     final minutos = {for (final inicio in inicios) inicio: 0};
 
     for (final sesion in sesiones) {
-      final fecha = DateTime.parse(sesion['fecha_inicio'] as String).toUtc();
+      final fecha = DateTime.parse(sesion['fecha_inicio'] as String).toLocal();
       final clave = _inicioDe(fecha, periodo);
       if (minutos.containsKey(clave)) {
         minutos[clave] =
@@ -54,32 +54,35 @@ class EstadisticasService {
   static int total(List<BarraGrafica> barras) =>
       barras.fold(0, (suma, barra) => suma + barra.minutos);
 
-  /// Primer instante (00:00 UTC) de cada periodo mostrado.
+  /// Primer instante (00:00 local) de cada periodo mostrado.
   static List<DateTime> _inicios(PeriodoGrafica periodo, DateTime ahora) {
-    final hoy = DateTime.utc(ahora.year, ahora.month, ahora.day);
+    final hoy = DateTime(ahora.year, ahora.month, ahora.day);
+    final lunes = _inicioDe(hoy, PeriodoGrafica.semana);
     return switch (periodo) {
       PeriodoGrafica.dia => [
           for (var i = diasMostrados - 1; i >= 0; i--)
-            hoy.subtract(Duration(days: i)),
+            DateTime(hoy.year, hoy.month, hoy.day - i),
         ],
       PeriodoGrafica.semana => [
           for (var i = semanasMostradas - 1; i >= 0; i--)
-            _inicioDe(hoy, periodo).subtract(Duration(days: 7 * i)),
+            DateTime(lunes.year, lunes.month, lunes.day - 7 * i),
         ],
       PeriodoGrafica.mes => [
           for (var i = mesesMostrados - 1; i >= 0; i--)
-            DateTime.utc(ahora.year, ahora.month - i, 1),
+            DateTime(ahora.year, ahora.month - i, 1),
         ],
     };
   }
 
-  /// Inicio del periodo al que pertenece una fecha: día, lunes de la semana o día 1.
+  /// Inicio del periodo al que pertenece una fecha local: día, lunes de la semana o día 1.
   static DateTime _inicioDe(DateTime fecha, PeriodoGrafica periodo) {
-    final dia = DateTime.utc(fecha.year, fecha.month, fecha.day);
+    final local = fecha.toLocal();
+    final dia = DateTime(local.year, local.month, local.day);
     return switch (periodo) {
       PeriodoGrafica.dia => dia,
-      PeriodoGrafica.semana => dia.subtract(Duration(days: dia.weekday - 1)),
-      PeriodoGrafica.mes => DateTime.utc(fecha.year, fecha.month, 1),
+      PeriodoGrafica.semana =>
+        DateTime(dia.year, dia.month, dia.day - (dia.weekday - 1)),
+      PeriodoGrafica.mes => DateTime(local.year, local.month, 1),
     };
   }
 
@@ -93,12 +96,12 @@ class EstadisticasService {
   static String _dosDigitos(int numero) => numero.toString().padLeft(2, '0');
 
   /// Calcula totales, racha, Top de tareas y bitácora a partir de las sesiones
-  /// completadas (con `tarea_titulo`). Es la lógica que antes estaba en la pantalla.
+  /// completadas (con `tarea_titulo`), agrupando por fecha local.
   static ResumenEstadisticas resumir(
     List<Map<String, dynamic>> sesiones, {
     DateTime? hoy,
   }) {
-    final ahora = (hoy ?? DateTime.now()).toUtc();
+    final ahora = (hoy ?? DateTime.now()).toLocal();
     final fechaHoy = _claveDia(ahora);
 
     var minutos = 0;
@@ -108,7 +111,9 @@ class EstadisticasService {
 
     for (final sesion in sesiones) {
       final duracion = sesion['duracion_minutos'] as int? ?? 0;
-      final dia = (sesion['fecha_inicio'] as String).substring(0, 10);
+      final fechaLocal =
+          DateTime.parse(sesion['fecha_inicio'] as String).toLocal();
+      final dia = _claveDia(fechaLocal);
       final titulo = _tituloDe(sesion);
 
       minutos += duracion;
@@ -163,24 +168,27 @@ class EstadisticasService {
     return datosAgrupados;
   }
 
-  /// Días consecutivos con sesiones, contando hacia atrás desde hoy.
+  /// Días consecutivos con sesiones, contando hacia atrás desde hoy local.
   /// Si hoy no hay sesiones, la racha empieza ayer.
   static int _racha(Set<String> diasTrabajados, DateTime ahora) {
-    var fecha = ahora;
-    if (!diasTrabajados.contains(_claveDia(ahora))) {
-      fecha = fecha.subtract(const Duration(days: 1));
+    final local = ahora.toLocal();
+    var fecha = DateTime(local.year, local.month, local.day);
+    if (!diasTrabajados.contains(_claveDia(fecha))) {
+      fecha = DateTime(fecha.year, fecha.month, fecha.day - 1);
     }
 
     var racha = 0;
     while (diasTrabajados.contains(_claveDia(fecha))) {
       racha++;
-      fecha = fecha.subtract(const Duration(days: 1));
+      fecha = DateTime(fecha.year, fecha.month, fecha.day - 1);
     }
     return racha;
   }
 
-  static String _claveDia(DateTime fecha) =>
-      fecha.toUtc().toIso8601String().substring(0, 10);
+  static String _claveDia(DateTime fecha) {
+    final local = fecha.toLocal();
+    return '${local.year.toString().padLeft(4, '0')}-${_dosDigitos(local.month)}-${_dosDigitos(local.day)}';
+  }
 
   static String _tituloDe(Map<String, dynamic> sesion) =>
       sesion['tarea_titulo'] as String? ?? 'Tarea eliminada';
