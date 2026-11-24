@@ -349,4 +349,44 @@ class SyncReglasTest extends TestCase
         $this->assertDatabaseMissing('tasks', ['id' => $taskId]);
         $this->assertDatabaseMissing('pomodoro_sessions', ['id' => $sessionId]);
     }
+
+    public function test_cp_td_24_sincronizar_dos_veces_con_milisegundos_omite_en_el_segundo_envio(): void
+    {
+        // Preparar
+        $usuario = User::factory()->create();
+        $payload = [
+            'tasks' => [[
+                'id' => '6f1c0000-0000-4000-8000-000000000024',
+                'titulo' => 'Tarea con milisegundos',
+                'prioridad' => 2,
+                'completada' => false,
+                'pomodoros_estimados' => 2,
+                'updated_at' => '2026-11-22T02:14:20.123Z',
+            ]],
+            'sessions' => [[
+                'id' => 'a93e0000-0000-4000-8000-000000000024',
+                'tarea_id' => '6f1c0000-0000-4000-8000-000000000024',
+                'fecha_inicio' => '2026-11-22T01:49:20.123Z',
+                'duracion_minutos' => 25,
+                'estado' => 'completada',
+                'updated_at' => '2026-11-22T02:14:20.123Z',
+            ]],
+            'tareas_eliminadas' => [],
+        ];
+
+        // Ejecutar
+        $primera = $this->actingAs($usuario)->postJson('/api/sync', $payload);
+        $segunda = $this->actingAs($usuario)->postJson('/api/sync', $payload);
+
+        // Verificar
+        $primera->assertStatus(200)
+            ->assertJsonPath('creados', 2)
+            ->assertJsonPath('actualizados', 0)
+            ->assertJsonPath('omitidos', 0);
+
+        $segunda->assertStatus(200)
+            ->assertJsonPath('creados', 0)
+            ->assertJsonPath('actualizados', 0)
+            ->assertJsonPath('omitidos', 2);
+    }
 }
