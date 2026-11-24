@@ -1,7 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pomodoroapp/data/database_helper.dart';
+import 'package:pomodoroapp/screens/graficas_screen.dart';
 import 'package:pomodoroapp/screens/settings_screen.dart';
+import 'package:pomodoroapp/screens/stats_screen.dart';
+import 'package:pomodoroapp/screens/sync_screen.dart';
+import 'package:pomodoroapp/screens/timer_screen.dart';
 import 'package:pomodoroapp/screens/tasks_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
@@ -471,4 +476,74 @@ void main() {
     // Verificar
     expect(find.text('Fuera del rango recomendado'), findsOneWidget);
   });
+
+  testWidgets(
+    'CP-CU-09 en la pantalla del temporizador se ven los 5 textos de la barra inferior y cada botón abre su pantalla',
+    (tester) async {
+      // Preparar
+      debugDefaultTargetPlatformOverride = TargetPlatform.linux;
+      tester.view.physicalSize = const Size(1080, 1920);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() {
+        debugDefaultTargetPlatformOverride = null;
+        tester.view.reset();
+      });
+
+      await tester.pumpWidget(const MaterialApp(home: TimerScreen()));
+      await tester.pumpAndSettle();
+
+      // Ejecutar y Verificar
+      final barra = find.byType(BottomAppBar);
+      expect(barra, findsOneWidget);
+      for (final texto in [
+        'Tareas',
+        'Estadísticas',
+        'Gráficas',
+        'Configuración',
+        'Sincronizar',
+      ]) {
+        expect(
+          find.descendant(of: barra, matching: find.text(texto)),
+          findsOneWidget,
+        );
+      }
+
+      await tester.tap(find.descendant(of: barra, matching: find.text('Tareas')));
+      await tester.pumpAndSettle();
+      expect(find.byType(TasksScreen), findsOneWidget);
+      await tester.pageBack();
+      await tester.pumpAndSettle();
+
+      await tester.tap(
+        find.descendant(of: barra, matching: find.text('Estadísticas')),
+      );
+      await tester.pumpAndSettle();
+      expect(find.byType(StatsScreen), findsOneWidget);
+      await tester.pageBack();
+      await tester.pumpAndSettle();
+
+      await tester.tap(
+        find.descendant(of: barra, matching: find.text('Gráficas')),
+      );
+      await tester.pumpAndSettle();
+      expect(find.byType(GraficasScreen), findsOneWidget);
+      await tester.pageBack();
+      await tester.pumpAndSettle();
+
+      await tester.tap(
+        find.descendant(of: barra, matching: find.text('Configuración')),
+      );
+      await tester.pumpAndSettle();
+      expect(find.byType(SettingsScreen), findsOneWidget);
+      await tester.pageBack();
+      await tester.pumpAndSettle();
+
+      await tester.tap(
+        find.descendant(of: barra, matching: find.text('Sincronizar')),
+      );
+      await tester.pumpAndSettle();
+      expect(find.byType(SyncScreen), findsOneWidget);
+      debugDefaultTargetPlatformOverride = null;
+    },
+  );
 }
