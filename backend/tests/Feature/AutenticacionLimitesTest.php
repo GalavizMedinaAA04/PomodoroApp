@@ -106,4 +106,35 @@ class AutenticacionLimitesTest extends TestCase
         $response->assertStatus(422)
             ->assertJsonValidationErrors(['email']);
     }
+
+    public function test_cp_ce_21_correo_con_mayusculas_se_normaliza_a_minusculas_en_registro_y_login(): void
+    {
+        // Preparar
+        $registro = $this->postJson('/api/register', [
+            'name' => 'Usuario Prueba',
+            'email' => 'Prueba@Pomodoro.test',
+            'password' => 'secreto123',
+            'password_confirmation' => 'secreto123',
+        ]);
+
+        // Ejecutar
+        $login = $this->postJson('/api/login', [
+            'email' => 'prueba@pomodoro.test',
+            'password' => 'secreto123',
+        ]);
+        $duplicado = $this->postJson('/api/register', [
+            'name' => 'Usuario Duplicado',
+            'email' => 'prueba@pomodoro.test',
+            'password' => 'secreto123',
+            'password_confirmation' => 'secreto123',
+        ]);
+
+        // Verificar
+        $registro->assertStatus(201)
+            ->assertJsonPath('user.email', 'prueba@pomodoro.test');
+        $login->assertStatus(200)
+            ->assertJsonPath('user.email', 'prueba@pomodoro.test');
+        $duplicado->assertStatus(422)
+            ->assertJsonValidationErrors(['email']);
+    }
 }
